@@ -1,0 +1,1170 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Midstar Investor Profile</title>
+  <meta name="description" content="Learn the basics of investing and discover your investor risk profile. Available in English and Arabic.">
+  <meta name="theme-color" content="#FBF8F1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%239C7A36'/%3E%3Cpath d='M7 23V9l9 9 9-9v14' fill='none' stroke='%23fff' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Lora:wght@500;600&family=Noto+Naskh+Arabic:wght@500;600&display=swap">
+  <style>
+/* Layout: sticky bar, then one centred column (max 1080px); slide viewer and questionnaire are single focused cards. Palette follows the Midstar "Introduction to Investing" deck: ivory, sand, antique gold. */
+:root{
+  --bg:#FBF8F1; --surface:#FFFFFF; --sand:#F3E9D2; --sand-2:#EADBB8; --line:#E4D8BE;
+  --ink:#2B2620; --muted:#6B6254; --gold:#9C7A36; --gold-ink:#7A5E25; --on-gold:#FFFFFF;
+  --gain:#4E9A3F; --loss:#D9622B;
+  --p1:#1E8A4C; --p1-ink:#FFFFFF; --p2:#93C54B; --p2-ink:#1F2A10; --p3:#EBC433; --p3-ink:#2B2306; --p4:#B8322A; --p4-ink:#FFFFFF;
+  --ok:#2F7D46; --ok-bg:#E5F2E8; --warn:#9A5B12; --warn-bg:#FBEBD3;
+  --f-display:"Lora","Noto Naskh Arabic",Georgia,"Times New Roman",serif;
+  --f-body:"IBM Plex Sans","IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --shadow:0 1px 2px rgba(60,45,20,.06),0 8px 24px rgba(60,45,20,.06);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#15130F; --surface:#1E1B16; --sand:#2A251C; --sand-2:#3A3226; --line:#3A3429;
+  --ink:#F1EADB; --muted:#ABA08B; --gold:#D4B06A; --gold-ink:#E2C389; --on-gold:#1A160F;
+  --gain:#7CC46A; --loss:#F08A55;
+  --ok:#86D29B; --ok-bg:#1D3326; --warn:#F2B866; --warn-bg:#3A2A14;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#15130F; --surface:#1E1B16; --sand:#2A251C; --sand-2:#3A3226; --line:#3A3429;
+  --ink:#F1EADB; --muted:#ABA08B; --gold:#D4B06A; --gold-ink:#E2C389; --on-gold:#1A160F;
+  --gain:#7CC46A; --loss:#F08A55;
+  --ok:#86D29B; --ok-bg:#1D3326; --warn:#F2B866; --warn-bg:#3A2A14;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:500;line-height:1.25;text-wrap:balance;margin:0;color:var(--ink)}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,a:focus-visible,select:focus-visible,label:focus-within{outline:2px solid var(--gold);outline-offset:2px}
+a{color:var(--gold-ink)}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);font-weight:600}
+[dir="rtl"] .eyebrow{letter-spacing:0}
+.muted{color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+
+/* Top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:16px;min-height:60px;flex-wrap:wrap;padding-block:8px}
+.brand{display:flex;align-items:baseline;gap:10px;margin-inline-end:auto;text-decoration:none;color:var(--ink)}
+.brand b{font-family:var(--f-display);font-size:21px;font-weight:600;letter-spacing:.04em}
+.brand span{font-size:13px;color:var(--muted)}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;max-width:100%}
+nav.tabs button{background:none;border:0;padding:8px 12px;border-radius:8px;white-space:nowrap;color:var(--muted);font-weight:500}
+nav.tabs button[aria-current="page"]{background:var(--sand);color:var(--ink)}
+.lang{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-weight:600}
+
+main{padding-block:32px 64px}
+section.view{display:grid;gap:28px}
+
+/* Home */
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center;padding-block:16px}
+.hero h1{font-size:clamp(30px,4.4vw,46px)}
+.hero p.lead{font-size:18px;color:var(--muted);margin-top:14px;max-width:56ch}
+.hero-art{background:var(--sand);border-radius:16px;padding:20px;min-width:0}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:11px 18px;font-weight:600;border:1px solid transparent;text-decoration:none}
+.btn.primary{background:var(--gold);color:var(--on-gold)}
+.btn.primary:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn.small{padding:7px 12px;font-size:14px}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:8px;align-content:start;min-width:0}
+.card h3{font-size:20px}
+.card .go{margin-top:6px;justify-self:start}
+.steps-mini{display:grid;gap:10px;font-size:15px}
+.steps-mini div{display:flex;gap:10px;align-items:flex-start}
+.steps-mini i{font-style:normal;flex:none;width:26px;height:26px;border-radius:50%;background:var(--surface);border:1px solid var(--sand-2);display:grid;place-items:center;font-size:13px;font-weight:600;color:var(--gold-ink)}
+
+/* Learn: slide viewer */
+.learn-head{display:flex;gap:16px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap}
+.seg{display:inline-flex;background:var(--sand);border-radius:10px;padding:3px}
+.seg button{border:0;background:none;padding:7px 14px;border-radius:8px;font-weight:500;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.deck{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.slide{padding:clamp(20px,4vw,44px);min-height:440px;display:grid;gap:18px;align-content:start}
+.slide h2{font-size:clamp(24px,3vw,34px)}
+.slide .bullets{display:grid;gap:8px;padding-inline-start:20px;margin:0;max-width:72ch}
+.slide .bullets li::marker{color:var(--gold)}
+.deck-foot{display:flex;align-items:center;gap:12px;border-top:1px solid var(--line);padding:12px 16px;background:var(--bg)}
+.deck-foot .count{margin-inline-start:auto;margin-inline-end:auto;font-size:14px;color:var(--muted)}
+.dots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.dots button{width:9px;height:9px;padding:0;border-radius:50%;border:0;background:var(--sand-2)}
+.dots button[aria-current="true"]{background:var(--gold);width:22px;border-radius:5px}
+.title-slide{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;min-height:380px}
+.title-slide h2{font-size:clamp(32px,5vw,52px)}
+.title-art{aspect-ratio:4/3;max-width:100%;border-radius:12px;background:var(--sand);display:grid;place-items:center}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.tile{background:var(--sand);border-radius:12px;padding:16px;display:grid;gap:6px;align-content:start;min-width:0}
+.tile h4{font-size:18px}
+.tile p,.tile li{font-size:15px;color:var(--muted)}
+.tile ul{margin:0;padding-inline-start:18px;display:grid;gap:4px}
+.tile .ic{width:34px;height:34px;color:var(--gold-ink)}
+.tile.plain{background:transparent;border:1px solid var(--line)}
+.example{border:1px dashed var(--gold);border-radius:12px;padding:14px 16px;background:color-mix(in srgb,var(--sand) 50%,transparent);display:grid;gap:4px;max-width:80ch}
+.example b.tag{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-ink)}
+[dir="rtl"] .example b.tag{letter-spacing:0}
+.takeaway{border-inline-start:3px solid var(--gold);padding-inline-start:14px;font-weight:500}
+.disclaimer{font-size:13px;color:var(--muted)}
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative}
+.timeline .tile{border-top:4px solid var(--gold)}
+.timeline .tile:nth-child(1){border-top-color:var(--p2)}
+.timeline .tile:nth-child(3){border-top-color:var(--p4)}
+
+/* Simulators */
+.sim{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:14px;min-width:0}
+.sim h4{font-size:18px}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.ctl{display:grid;gap:4px;font-size:14px}
+.ctl label{color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.ctl label output{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--gold)}
+.statrow{display:flex;gap:24px;flex-wrap:wrap}
+.stat{display:grid}
+.stat .v{font-family:var(--f-display);font-size:26px;font-variant-numeric:tabular-nums}
+.stat .k{font-size:13px;color:var(--muted)}
+.chart{width:100%;overflow-x:auto}
+.chart svg{display:block;width:100%;height:auto;min-width:520px}
+.chart text{fill:var(--muted);font-family:var(--f-body);font-size:12px}
+.chart .grid line{stroke:var(--line)}
+.alloc-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:15px}
+.alloc-table th,.alloc-table td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:center}
+.alloc-table th:first-child,.alloc-table td:first-child{text-align:start}
+.alloc-table tr.sel td,.alloc-table th.sel{background:var(--sand)}
+.alloc-table thead button{border:0;background:none;font-weight:600;padding:4px 8px;border-radius:6px}
+.alloc-table thead th.sel button{color:var(--gold-ink)}
+.swatch{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:8px;vertical-align:middle}
+.tblwrap{overflow-x:auto}
+
+/* Questionnaire */
+.quiz{display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:start}
+.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px);display:grid;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.rail ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.rail li button{width:100%;text-align:start;border:0;background:none;padding:6px 8px;border-radius:8px;display:flex;gap:10px;align-items:center;font-size:14px;color:var(--muted)}
+.rail li button[aria-current="step"]{background:var(--sand);color:var(--ink);font-weight:600}
+.rail li button:disabled{cursor:default;opacity:.55}
+.rail .tick{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--sand-2);flex:none;display:grid;place-items:center;font-size:11px}
+.rail .done .tick{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.rail .part{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-ink);font-weight:600;padding:8px 8px 2px}
+[dir="rtl"] .rail .part{letter-spacing:0}
+.progress{height:6px;background:var(--sand);border-radius:3px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:clamp(20px,4vw,36px);display:grid;gap:18px;min-width:0}
+.qcard h2{font-size:clamp(21px,2.6vw,27px);max-width:60ch}
+.help-toggle{justify-self:start;border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:500;display:inline-flex;gap:8px;align-items:center}
+.help{background:var(--sand);border-radius:12px;padding:14px 16px;display:grid;gap:8px;font-size:15px;max-width:72ch}
+.help .ex{border-top:1px solid var(--sand-2);padding-top:8px}
+.help .ex b{color:var(--gold-ink)}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:14px;align-items:flex-start;border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;cursor:pointer;background:var(--surface);transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--sand-2)}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt .dot{flex:none;width:20px;height:20px;border-radius:50%;border:2px solid var(--sand-2);margin-top:2px;display:grid;place-items:center}
+.opt.on{border-color:var(--gold);background:color-mix(in srgb,var(--sand) 55%,var(--surface))}
+.opt.on .dot{border-color:var(--gold)}
+.opt.on .dot::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--gold)}
+.opt .body{display:grid;gap:4px;min-width:0;flex:1}
+.opt .body small{color:var(--muted);font-size:14px}
+.opt .pts{margin-inline-start:auto;font-size:12px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.range-viz{height:22px;position:relative;background:var(--bg);border-radius:4px;margin-top:4px;max-width:420px}
+.range-viz .base{position:absolute;top:0;bottom:0;width:1.5px;background:var(--ink);opacity:.6}
+.range-viz .dn{position:absolute;top:5px;bottom:5px;background:var(--loss);border-radius:3px 0 0 3px}
+.range-viz .up{position:absolute;top:5px;bottom:5px;background:var(--gain);border-radius:0 3px 3px 0}
+.qnav{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:16px}
+.fields{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.field{display:grid;gap:6px;font-size:14px}
+.field input{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-size:13px;background:var(--sand);border-radius:999px;padding:4px 10px}
+.adv{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+
+/* Results */
+.result-head{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:10px;border-radius:12px;padding:10px 16px;font-family:var(--f-display);font-size:24px;font-weight:600}
+.badge.p1{background:var(--p1);color:var(--p1-ink)}.badge.p2{background:var(--p2);color:var(--p2-ink)}.badge.p3{background:var(--p3);color:var(--p3-ink)}.badge.p4{background:var(--p4);color:var(--p4-ink)}
+.scores{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.meter{display:grid;gap:6px}
+.meter .bar2{height:10px;background:var(--sand);border-radius:5px;overflow:hidden}
+.meter .bar2 i{display:block;height:100%;background:var(--gold)}
+.meter .top{display:flex;justify-content:space-between;align-items:baseline}
+.meter .top b{font-family:var(--f-display);font-size:28px;font-weight:500;font-variant-numeric:tabular-nums}
+.matrix-wrap{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:24px;align-items:center}
+.matrix svg{width:100%;max-width:520px;height:auto;display:block}
+.matrix text{font-family:var(--f-body);font-size:12px;fill:var(--muted)}
+.legend{display:grid;gap:8px;font-size:14px}
+.legend div{display:flex;gap:10px;align-items:center}
+.legend i{width:16px;height:16px;border-radius:4px;flex:none}
+.verdict{border-radius:12px;padding:14px 16px;display:grid;gap:4px}
+.verdict.ok{background:var(--ok-bg);color:var(--ok)}
+.verdict.no{background:var(--warn-bg);color:var(--warn)}
+.verdict b{font-size:16px}
+.verdict p{color:var(--ink);font-size:15px}
+.ans-table{width:100%;border-collapse:collapse;font-size:14px}
+.ans-table th,.ans-table td{text-align:start;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.ans-table td.p{text-align:end;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ans-table tfoot td{font-weight:600}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;z-index:40}
+footer{border-top:1px solid var(--line);padding-block:20px;font-size:13px;color:var(--muted)}
+
+@media (max-width:860px){
+  .hero,.title-slide,.matrix-wrap,.quiz{grid-template-columns:1fr}
+  .rail{position:static}
+  .rail ol{display:none}
+  .cards3,.grid3,.grid4,.timeline{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){
+  .cards3,.grid2,.grid3,.grid4,.timeline,.scores,.fields{grid-template-columns:1fr}
+  .result-head{grid-template-columns:1fr}
+  .slide{min-height:0}
+  .brand span{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  .bar,.rail,.qnav,.actions,footer,.adv{display:none!important}
+  body{background:#fff}
+  .quiz{grid-template-columns:1fr}
+  .qcard{box-shadow:none;border:0}
+}
+.grid1{display:grid;gap:12px}
+.ic16{width:16px;height:16px;flex:none}
+.opt{position:relative}
+.tile .ic,.card .ic{width:30px;height:30px;color:var(--gold-ink)}
+[dir="rtl"] .flip{transform:scaleX(-1)}
+
+</style>
+  <style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+  <div id="app"></div>
+  <noscript><p style="padding:24px">This site needs JavaScript to run. Please enable it in your browser.</p></noscript>
+  <script>
+/* Midstar Investor Profile — content (English + Arabic).
+   Edit wording, questions, points, slides and simulator data here.
+   Scoring rules (bands and matrix) are also defined in this file. */
+/* ===== Content: UI strings, questionnaire, presentation. Edit text here; both languages sit side by side. ===== */
+const L = (en, ar) => ({ en, ar });
+
+const UI = {
+  brandSub: L("Investor Profile", "ملف المستثمر"),
+  nav: { home: L("Home", "الرئيسية"), learn: L("Learn to invest", "تعلّم الاستثمار"), quiz: L("Risk profile", "ملف المخاطر"), tools: L("Simulators", "أدوات المحاكاة") },
+  langBtn: L("العربية", "English"),
+  heroEyebrow: L("Midstar · Know your investor", "ميدستار · اعرف المستثمر"),
+  heroTitle: L("Understand investing, then find the risk profile that fits you", "افهم الاستثمار، ثم اكتشف ملف المخاطر الذي يناسبك"),
+  heroLead: L("Start with a short guide to how investing works. Then answer 12 questions about your experience, goals and comfort with ups and downs. Your profile is calculated instantly.", "ابدأ بدليل قصير يشرح كيف يعمل الاستثمار، ثم أجب عن 12 سؤالاً حول خبرتك وأهدافك ومدى ارتياحك لتقلبات السوق. يُحتسب ملفك فوراً."),
+  ctaQuiz: L("Start the questionnaire", "ابدأ الاستبيان"),
+  ctaLearn: L("Read the guide first", "اقرأ الدليل أولاً"),
+  howTitle: L("How it works", "كيف يعمل"),
+  how: [L("Learn the basics: time horizon, risk, asset classes", "تعلّم الأساسيات: الأفق الزمني، المخاطر، فئات الأصول"), L("Answer 11 scored questions in two parts: risk and liquidity", "أجب عن 11 سؤالاً محسوب النقاط في جزأين: المخاطر والسيولة"), L("Choose the statement that best describes you", "اختر العبارة التي تصفك بشكل أفضل"), L("See your profile and whether it matches your own view", "اطّلع على ملفك ومدى توافقه مع تقييمك الذاتي")],
+  card1T: L("Introduction to Investing", "مقدمة في الاستثمار"),
+  card1P: L("The full guide, with examples and small calculators you can play with.", "الدليل الكامل، مع أمثلة وحاسبات صغيرة يمكنك تجربتها."),
+  card2T: L("The simplified guide", "الدليل المبسّط"),
+  card2P: L("The same ideas in plain words, for a first introduction.", "الأفكار نفسها بكلمات بسيطة، كمقدمة أولى."),
+  card3T: L("Investor risk profile", "ملف مخاطر المستثمر"),
+  card3P: L("About 5 minutes. Every question has an explanation and an example.", "حوالي 5 دقائق. لكل سؤال شرح ومثال."),
+  open: L("Open", "افتح"),
+  start: L("Start", "ابدأ"),
+  learnTitle: L("Introduction to Investing", "مقدمة في الاستثمار"),
+  learnLead: L("Use the arrows or your keyboard to move between slides. Boxes marked Example and Try it were added to make each idea concrete.", "استخدم الأسهم أو لوحة المفاتيح للتنقل بين الشرائح. أُضيفت المربعات المعنونة «مثال» و«جرّب» لتوضيح كل فكرة."),
+  full: L("Full version", "النسخة الكاملة"),
+  simple: L("Simplified", "النسخة المبسّطة"),
+  prev: L("Previous", "السابق"),
+  next: L("Next", "التالي"),
+  slideOf: L("Slide {a} of {b}", "الشريحة {a} من {b}"),
+  example: L("Example", "مثال"),
+  tryIt: L("Try it", "جرّب"),
+  toolsTitle: L("Simulators", "أدوات المحاكاة"),
+  toolsLead: L("Change the numbers and watch the result. These are simple illustrations with constant rates, not forecasts.", "غيّر الأرقام وراقب النتيجة. هذه أمثلة توضيحية مبسّطة بمعدلات ثابتة، وليست توقعات."),
+  // questionnaire
+  qTitle: L("Investor risk profile", "ملف مخاطر المستثمر"),
+  partI: L("Part I · Risk", "الجزء الأول · المخاطر"),
+  partII: L("Part II · Liquidity", "الجزء الثاني · السيولة"),
+  partIII: L("Part III · Self-assessment", "الجزء الثالث · التقييم الذاتي"),
+  about: L("About you", "عنك"),
+  results: L("Your result", "نتيجتك"),
+  introH: L("Before you start", "قبل أن تبدأ"),
+  introP: L("There are no right or wrong answers. Choose what is true for you today. If a question is unclear, press “Explain with an example”.", "لا توجد إجابات صحيحة أو خاطئة. اختر ما ينطبق عليك اليوم. إذا لم يكن السؤال واضحاً، اضغط «اشرح بمثال»."),
+  privacy: L("Your answers stay on this screen. Nothing is saved or sent anywhere.", "تبقى إجاباتك على هذه الشاشة فقط. لا يتم حفظ أو إرسال أي شيء."),
+  nameL: L("Full name (optional)", "الاسم الكامل (اختياري)"),
+  dateL: L("Date", "التاريخ"),
+  explain: L("Explain with an example", "اشرح بمثال"),
+  hide: L("Hide explanation", "إخفاء الشرح"),
+  whatMeans: L("What this means", "ماذا يعني ذلك"),
+  forExample: L("For example", "على سبيل المثال"),
+  back: L("Back", "رجوع"),
+  cont: L("Continue", "متابعة"),
+  seeResult: L("See my profile", "اعرض ملفي"),
+  answered: L("{a} of {b} answered", "تمت الإجابة على {a} من {b}"),
+  showAllHelp: L("Show explanations for every question", "عرض الشرح لكل سؤال"),
+  showPts: L("Show points (adviser view)", "عرض النقاط (عرض المستشار)"),
+  pts: L("pts", "نقطة"),
+  selfQ: L("Which one of the following statements best describes your investment objective and comfort level with fluctuations in the value of your investments?", "أيّ من العبارات التالية تصف بشكل أفضل هدفك الاستثماري ومدى ارتياحك لتقلبات قيمة استثماراتك؟"),
+  selfHelp: L("This part is not scored. We compare your own view with the result of Parts I and II. If they differ, your adviser will talk it through with you.", "هذا الجزء لا يُحتسب بالنقاط. نقارن رأيك الشخصي بنتيجة الجزأين الأول والثاني. إذا اختلفا، سيناقش مستشارك ذلك معك."),
+  selfEx: L("Someone who mainly wants regular income, such as quarterly payouts, and can accept small dips would usually pick Cautious.", "الشخص الذي يريد أساساً دخلاً منتظماً، مثل توزيعات ربع سنوية، ويمكنه تقبّل انخفاضات صغيرة، يختار عادةً «متحفظ»."),
+  // results
+  yourProfile: L("Your investor profile", "ملفك الاستثماري"),
+  riskScore: L("Risk appetite (Part I)", "الرغبة في المخاطرة (الجزء الأول)"),
+  liqScore: L("Liquidity needs (Part II)", "احتياجات السيولة (الجزء الثاني)"),
+  riskNote: L("Higher means more willing and able to take risk.", "كلما ارتفع الرقم زادت الرغبة والقدرة على تحمّل المخاطر."),
+  liqNote: L("Higher means you need more access to your money.", "كلما ارتفع الرقم زادت حاجتك للوصول إلى أموالك."),
+  matrixT: L("Risk and liquidity matrix", "مصفوفة المخاطر والسيولة"),
+  axisR: L("Risk appetite", "الرغبة في المخاطرة"),
+  axisL: L("Liquidity needs", "احتياجات السيولة"),
+  you: L("You", "أنت"),
+  inLine: L("Self-assessment in line with questionnaire", "التقييم الذاتي متوافق مع الاستبيان"),
+  notInLine: L("Self-assessment not in line with questionnaire", "التقييم الذاتي غير متوافق مع الاستبيان"),
+  inLineP: L("You described yourself as {s}, which matches your calculated profile.", "وصفت نفسك بأنك {s}، وهذا يتطابق مع ملفك المحتسب."),
+  notInLineP: L("You described yourself as {s}, but your answers point to {c}. Your adviser will discuss the difference with you before any recommendation.", "وصفت نفسك بأنك {s}، لكن إجاباتك تشير إلى {c}. سيناقش مستشارك هذا الاختلاف معك قبل تقديم أي توصية."),
+  answersT: L("Your answers", "إجاباتك"),
+  colQ: L("Question", "السؤال"), colA: L("Answer", "الإجابة"), colP: L("Points", "النقاط"),
+  total: L("Total", "المجموع"),
+  copy: L("Copy summary", "نسخ الملخص"),
+  copied: L("Summary copied", "تم نسخ الملخص"),
+  copyFail: L("Copy blocked. The summary is selected, press Ctrl+C.", "تعذّر النسخ. تم تحديد الملخص، اضغط Ctrl+C."),
+  print: L("Print or save as PDF", "طباعة أو حفظ PDF"),
+  edit: L("Change answers", "تعديل الإجابات"),
+  restart: L("Start again", "البدء من جديد"),
+  learnMore: L("See how profiles relate to portfolios", "اطّلع على علاقة الملفات بالمحافظ"),
+  disclaimerFoot: L("For information only. This is not investment advice. Past performance is not indicative of future performance.", "لأغراض المعلومات فقط. هذا ليس نصيحة استثمارية. الأداء السابق ليس مؤشراً على الأداء المستقبلي."),
+};
+
+const PROFILES = [
+  { n: 1, name: L("Ultra Cautious", "شديد التحفظ"), text: L("The primary objective is to preserve capital in the long term, and to experience minimum volatility. I understand and accept that this will limit the returns on my assets.", "الهدف الأساسي هو الحفاظ على رأس المال على المدى الطويل مع أدنى حد من التقلبات. أفهم وأقبل أن ذلك سيحدّ من العوائد على أصولي.") },
+  { n: 2, name: L("Cautious", "متحفظ"), text: L("The primary objective is to provide an ongoing source of income and an element of capital growth while accepting modest capital at risk and low volatility.", "الهدف الأساسي هو توفير مصدر دخل مستمر مع قدر من نمو رأس المال، مع قبول مخاطر متواضعة على رأس المال وتقلبات منخفضة.") },
+  { n: 3, name: L("Moderate", "معتدل"), text: L("The primary objective is to provide medium to long term capital growth while meeting current income requirements. I am willing to accept capital at risk associated with fluctuating markets.", "الهدف الأساسي هو تحقيق نمو في رأس المال على المدى المتوسط إلى الطويل مع تلبية احتياجات الدخل الحالية. أنا على استعداد لقبول المخاطر على رأس المال المرتبطة بتقلبات الأسواق.") },
+  { n: 4, name: L("Adventurous", "مغامر"), text: L("The primary objective is to achieve long term capital growth while understanding that capital could suffer a substantial, or even total loss. I am willing to take a high risk to potentially earn a high return on my capital.", "الهدف الأساسي هو تحقيق نمو رأس المال على المدى الطويل مع إدراك أن رأس المال قد يتعرض لخسارة كبيرة أو حتى كاملة. أنا على استعداد لتحمّل مخاطر عالية لتحقيق عائد مرتفع محتمل على رأس مالي.") },
+];
+
+/* Scoring grid from Part IV of the Word questionnaire.
+   Rows: risk bands from low to high [0-37), [37-73), [73-97), [97-120]
+   Columns: liquidity bands from low to high [0-29), [29-57), [57-77), [77-100] */
+const R_BOUNDS = [0, 37, 73, 97, 120];
+const L_BOUNDS = [0, 29, 57, 77, 100];
+const MATRIX = [
+  [2, 1, 1, 1],
+  [3, 2, 2, 2],
+  [4, 3, 3, 2],
+  [4, 4, 3, 2],
+];
+
+const KNOW = (none) => [
+  { t: none, p: 0 },
+  { t: L("I have limited knowledge or experience", "لدي معرفة أو خبرة محدودة"), p: 2 },
+  { t: L("I have moderate knowledge or experience", "لدي معرفة أو خبرة متوسطة"), p: 4 },
+];
+
+const QUESTIONS = [
+  { id: "R1", part: "R",
+    q: L("Please select what best describes your investment knowledge or experience in traditional investment products (Equities, ETFs, Bonds, Sukuks, etc.)", "يرجى اختيار ما يصف بشكل أفضل معرفتك أو خبرتك الاستثمارية في المنتجات الاستثمارية التقليدية (الأسهم، الصناديق المتداولة، السندات، الصكوك، إلخ)"),
+    help: L("Traditional products are the ones traded on public markets. Equities are shares in companies. ETFs are funds that hold many shares or bonds and trade like a single share. Bonds and sukuks pay you regular income in return for lending money.", "المنتجات التقليدية هي التي تُتداول في الأسواق العامة. الأسهم هي حصص في الشركات. الصناديق المتداولة (ETFs) هي صناديق تضم العديد من الأسهم أو السندات وتُتداول كسهم واحد. السندات والصكوك تمنحك دخلاً منتظماً مقابل إقراض أموالك."),
+    ex: L("If you have only ever used a savings account or a fixed deposit, choose the first answer. If you own a few shares through a bank app and check them now and then, “limited” fits.", "إذا كنت قد استخدمت فقط حساب توفير أو وديعة ثابتة، اختر الإجابة الأولى. إذا كنت تملك بعض الأسهم عبر تطبيق مصرفي وتتابعها من حين لآخر، فإن «محدودة» هي الأنسب."),
+    opts: [...KNOW(L("I have no knowledge of investment products other than bank fixed deposits/savings accounts.", "ليست لدي معرفة بالمنتجات الاستثمارية باستثناء الودائع الثابتة وحسابات التوفير المصرفية.")), { t: L("I have extensive knowledge or experience", "لدي معرفة أو خبرة واسعة"), p: 7 }] },
+  { id: "R2", part: "R",
+    q: L("Please select what best describes your investment knowledge or experience in gold and real estate", "يرجى اختيار ما يصف بشكل أفضل معرفتك أو خبرتك الاستثمارية في الذهب والعقارات"),
+    help: L("This covers buying gold as an investment and owning property to rent out or sell later, either directly or through a fund.", "يشمل ذلك شراء الذهب كاستثمار وامتلاك عقار لتأجيره أو بيعه لاحقاً، سواء بشكل مباشر أو من خلال صندوق."),
+    ex: L("Buying gold bars to hold for several years, or owning an apartment that you rent out, counts as experience here.", "شراء سبائك ذهب للاحتفاظ بها عدة سنوات، أو امتلاك شقة تؤجرها، يُعدّ خبرة هنا."),
+    opts: [...KNOW(L("I have no knowledge or experience", "ليست لدي أي معرفة أو خبرة")), { t: L("I have extensive knowledge or experience", "لدي معرفة أو خبرة واسعة"), p: 6 }] },
+  { id: "R3", part: "R",
+    q: L("Please select what best describes your investment knowledge or experience in other alternative investment products (Private Equity, Commodities, Derivatives, Hedge Funds, etc.)", "يرجى اختيار ما يصف بشكل أفضل معرفتك أو خبرتك في منتجات الاستثمار البديلة الأخرى (الملكية الخاصة، السلع، المشتقات، صناديق التحوط، إلخ)"),
+    help: L("Alternatives are investments outside shares, bonds and cash. Private equity means owning part of a company that is not listed on a stock exchange. Derivatives, such as options and futures, are contracts whose value depends on another asset.", "الاستثمارات البديلة هي استثمارات خارج نطاق الأسهم والسندات والنقد. الملكية الخاصة تعني امتلاك جزء من شركة غير مدرجة في البورصة. المشتقات، مثل الخيارات والعقود الآجلة، هي عقود تعتمد قيمتها على أصل آخر."),
+    ex: L("Putting money into a friend's private company, investing in a private equity fund, or trading oil futures all count as experience here.", "استثمار أموالك في شركة خاصة لصديق، أو في صندوق ملكية خاصة، أو تداول العقود الآجلة للنفط، كلها تُعدّ خبرة هنا."),
+    opts: [...KNOW(L("I have no knowledge or experience", "ليست لدي أي معرفة أو خبرة")), { t: L("I have extensive knowledge or experience", "لدي معرفة أو خبرة واسعة"), p: 7 }] },
+  { id: "R4", part: "R", range: true,
+    q: L("Assume $1m was invested in one of four portfolios, each with different risk characteristics. At any point in time the value of each portfolio would have been in the range shown below. Which would you choose?", "لنفترض أنه تم استثمار مليون دولار في واحدة من أربع محافظ، لكل منها خصائص مخاطر مختلفة. في أي وقت، كانت قيمة كل محفظة ستقع ضمن النطاق الموضّح أدناه. أيّها تختار؟"),
+    help: L("Each choice shows the lowest and highest your $1m could have been worth along the way. A wider range gives more room to grow, and also a deeper possible drop. Red is the possible loss, green the possible gain.", "يوضح كل خيار أدنى وأعلى قيمة كان يمكن أن تصل إليها المليون دولار خلال الفترة. النطاق الأوسع يمنح فرصة أكبر للنمو، وأيضاً احتمال انخفاض أعمق. الأحمر هو الخسارة المحتملة، والأخضر هو الربح المحتمل."),
+    ex: L("With the last option, your $1m could at some point be worth $670,000 (a 33% fall) or $1.44m (a 44% gain). With the first option, the worst is $930,000 (−7%) and the best $1.14m (+14%).", "في الخيار الأخير، قد تصبح قيمة المليون دولار في وقت ما 670,000 دولار (انخفاض 33%) أو 1.44 مليون دولار (ربح 44%). في الخيار الأول، أسوأ قيمة هي 930,000 دولار (−7%) وأفضلها 1.14 مليون دولار (+14%)."),
+    opts: [
+      { t: L("Between $0.93m and $1.14m", "بين 0.93 و1.14 مليون دولار"), p: 0, lo: 0.93, hi: 1.14 },
+      { t: L("Between $0.89m and $1.21m", "بين 0.89 و1.21 مليون دولار"), p: 6, lo: 0.89, hi: 1.21 },
+      { t: L("Between $0.80m and $1.32m", "بين 0.80 و1.32 مليون دولار"), p: 12, lo: 0.80, hi: 1.32 },
+      { t: L("Between $0.67m and $1.44m", "بين 0.67 و1.44 مليون دولار"), p: 18, lo: 0.67, hi: 1.44 },
+    ] },
+  { id: "R5", part: "R",
+    q: L("What do you consider to be the length of your investment time horizon?", "ما المدة التي تعتبرها أفقك الزمني للاستثمار؟"),
+    help: L("Your time horizon is how long you can leave the money invested before you need it back. Longer horizons give investments time to recover from falls.", "أفقك الزمني هو المدة التي يمكنك خلالها ترك أموالك مستثمرة قبل أن تحتاج إلى استردادها. الآفاق الأطول تمنح الاستثمارات وقتاً للتعافي من الانخفاضات."),
+    ex: L("Saving for a child's university fees due in 4 years means 3–5 years. Building wealth for retirement in 20 years means 10+ years.", "الادخار لرسوم جامعة طفلك المستحقة بعد 4 سنوات يعني 3–5 سنوات. بناء ثروة للتقاعد بعد 20 عاماً يعني أكثر من 10 سنوات."),
+    opts: [
+      { t: L("Less than 3 years", "أقل من 3 سنوات"), p: 0 },
+      { t: L("3–5 years", "3–5 سنوات"), p: 6 },
+      { t: L("5–10 years", "5–10 سنوات"), p: 13 },
+      { t: L("10+ years", "أكثر من 10 سنوات"), p: 19 },
+    ] },
+  { id: "R6", part: "R",
+    q: L("What levels of unrealised financial loss could you tolerate over the short term? (1 year)", "ما مستوى الخسارة المالية غير المحققة الذي يمكنك تحمّله على المدى القصير؟ (سنة واحدة)"),
+    help: L("An unrealised loss is a fall in value on paper. You still own the investment and have not sold it, so the loss is not locked in and the value can recover.", "الخسارة غير المحققة هي انخفاض في القيمة على الورق. ما زلت تملك الاستثمار ولم تبعه، لذا فإن الخسارة ليست نهائية ويمكن أن تتعافى القيمة."),
+    ex: L("On $100,000: up to 5% means your statement could show $95,000; up to 10% means $90,000; up to 20% means $80,000 for a while.", "على مبلغ 100,000 دولار: حتى 5% يعني أن كشف حسابك قد يُظهر 95,000 دولار؛ حتى 10% يعني 90,000 دولار؛ حتى 20% يعني 80,000 دولار لفترة من الوقت."),
+    opts: [
+      { t: L("None", "لا شيء"), p: 0 },
+      { t: L("Up to 5%", "حتى 5%"), p: 6 },
+      { t: L("Up to 10%", "حتى 10%"), p: 13 },
+      { t: L("Up to 20%", "حتى 20%"), p: 19 },
+      { t: L("More than 20%", "أكثر من 20%"), p: 25 },
+    ] },
+  { id: "R7", part: "R",
+    q: L("How would you react if the return on your investment were negative or below your expectations?", "كيف ستتصرف إذا كان العائد على استثمارك سلبياً أو أقل من توقعاتك؟"),
+    help: L("This is about what you would actually do, not what you think is right. Selling after a fall turns a paper loss into a real one; staying invested gives the value time to recover.", "يتعلق هذا السؤال بما ستفعله فعلاً، وليس بما تعتقد أنه الصواب. البيع بعد الانخفاض يحوّل الخسارة الورقية إلى خسارة فعلية، أما البقاء مستثمراً فيمنح القيمة وقتاً للتعافي."),
+    ex: L("Markets fall 15% in one month and your $100,000 is now $85,000. Do you sell everything, sell part, wait, or invest more while prices are low?", "تنخفض الأسواق 15% في شهر واحد وتصبح 100,000 دولار لديك 85,000 دولار. هل تبيع كل شيء، أم تبيع جزءاً، أم تنتظر، أم تستثمر المزيد بينما الأسعار منخفضة؟"),
+    opts: [
+      { t: L("I would redeem the full value of my investment", "سأسترد كامل قيمة استثماري"), p: 0 },
+      { t: L("I would partially redeem my investment", "سأسترد جزءاً من استثماري"), p: 6 },
+      { t: L("I would wait until my investment recovered", "سأنتظر حتى يتعافى استثماري"), p: 13 },
+      { t: L("I would add to my investment to take advantage of the lower price", "سأضيف إلى استثماري للاستفادة من انخفاض السعر"), p: 19 },
+    ] },
+  { id: "R8", part: "R",
+    q: L("How would you generally categorise your investment risk outlook?", "كيف تصنّف بشكل عام نظرتك إلى مخاطر الاستثمار؟"),
+    help: L("Your capital is the money you put in. Your returns are the gains on top of it. Some people accept that gains will vary but never want to get back less than they invested.", "رأس مالك هو المبلغ الذي استثمرته. عوائدك هي الأرباح الإضافية عليه. بعض الأشخاص يقبلون تفاوت الأرباح لكنهم لا يريدون أبداً استرداد أقل مما استثمروه."),
+    ex: L("You invest $100,000. Being fine with a gain of anywhere from $2,000 to $8,000, but not with getting back $95,000, matches the second answer.", "تستثمر 100,000 دولار. إذا كنت مرتاحاً لربح يتراوح بين 2,000 و8,000 دولار، لكن لا تقبل أن تسترد 95,000 دولار، فهذا يطابق الإجابة الثانية."),
+    opts: [
+      { t: L("I do not want to risk my capital or have any negative returns", "لا أريد المخاطرة برأس مالي أو تحقيق أي عوائد سلبية"), p: 0 },
+      { t: L("I do not want to risk my capital but am willing to accept fluctuations on my returns", "لا أريد المخاطرة برأس مالي لكنني على استعداد لقبول تقلبات في عوائدي"), p: 6 },
+      { t: L("I can accept some risk on my capital and fluctuations on my returns", "يمكنني قبول بعض المخاطر على رأس مالي وتقلبات في عوائدي"), p: 13 },
+      { t: L("I can accept reasonable levels of risk on my capital as well as my returns", "يمكنني قبول مستويات معقولة من المخاطر على رأس مالي وعلى عوائدي"), p: 19 },
+    ] },
+  { id: "L1", part: "L",
+    q: L("What percentage of your investments might you want to withdraw to meet unexpected events?", "ما النسبة المئوية من استثماراتك التي قد ترغب في سحبها لمواجهة الأحداث غير المتوقعة؟"),
+    help: L("Unexpected events are things like a medical bill, a change of job or a family need. If you already keep an emergency fund elsewhere, you may need to withdraw less.", "الأحداث غير المتوقعة هي أمور مثل فاتورة طبية أو تغيير وظيفة أو حاجة عائلية. إذا كان لديك صندوق طوارئ في مكان آخر، فقد تحتاج إلى سحب مبلغ أقل."),
+    ex: L("You invest $200,000 and might need up to $50,000 at short notice. That is 25%, so choose 0%–25%.", "تستثمر 200,000 دولار وقد تحتاج إلى ما يصل إلى 50,000 دولار في وقت قصير. هذا يساوي 25%، لذا اختر 0%–25%."),
+    opts: [
+      { t: L("None", "لا شيء"), p: 0 },
+      { t: L("0%–25%", "0%–25%"), p: 7 },
+      { t: L("25%–50%", "25%–50%"), p: 14 },
+      { t: L("50%–75%", "50%–75%"), p: 21 },
+      { t: L("75%–100%", "75%–100%"), p: 28 },
+    ] },
+  { id: "L2", part: "L",
+    q: L("How comfortable are you to invest in illiquid asset classes (Real Estate, Private Equity, etc.) where returns can only be redeemed at the exit from the investment (typically, 5–10 years)?", "ما مدى ارتياحك للاستثمار في فئات الأصول غير السائلة (العقارات، الملكية الخاصة، إلخ) حيث لا يمكن استرداد العوائد إلا عند التخارج من الاستثمار (عادةً بعد 5–10 سنوات)؟"),
+    help: L("Illiquid means you cannot quickly sell and get your cash back. In exchange for locking money away, these investments can offer higher returns.", "غير سائل يعني أنك لا تستطيع البيع بسرعة واسترداد أموالك نقداً. في مقابل تجميد الأموال، قد تقدم هذه الاستثمارات عوائد أعلى."),
+    ex: L("A real estate fund where your money is committed for 7 years and paid back when the buildings are sold. You cannot ask for it back in year 3.", "صندوق عقاري تُلتزم فيه أموالك لمدة 7 سنوات وتُعاد إليك عند بيع المباني. لا يمكنك طلب استردادها في السنة الثالثة."),
+    opts: [
+      { t: L("Very comfortable", "مرتاح جداً"), p: 0 },
+      { t: L("Moderately comfortable", "مرتاح بدرجة متوسطة"), p: 12 },
+      { t: L("Somewhat comfortable but not preferable", "مرتاح نوعاً ما لكنه ليس خياري المفضل"), p: 24 },
+      { t: L("Not comfortable at all", "غير مرتاح على الإطلاق"), p: 36 },
+    ] },
+  { id: "L3", part: "L",
+    q: L("How much regular income, generated from your investments, do you require during the investment period?", "ما مقدار الدخل المنتظم الناتج عن استثماراتك الذي تحتاجه خلال فترة الاستثمار؟"),
+    help: L("Income means regular payouts such as dividends, coupons or rent. Money taken out as income is not reinvested, so it does not keep compounding.", "الدخل يعني توزيعات منتظمة مثل أرباح الأسهم أو عوائد السندات أو الإيجارات. الأموال المسحوبة كدخل لا يُعاد استثمارها، وبالتالي لا تستمر في التراكم."),
+    ex: L("Taking a quarterly payout to cover part of your living costs is “a moderate amount”. Leaving everything to grow until you exit is “none”.", "الحصول على توزيع ربع سنوي لتغطية جزء من تكاليف معيشتك هو «مبلغ معتدل». ترك كل شيء لينمو حتى التخارج هو «لا شيء»."),
+    opts: [
+      { t: L("None, I will take it back at the end as it grows", "لا شيء، سأسترده في النهاية بعد أن ينمو"), p: 0 },
+      { t: L("I will take it if it is generated", "سآخذه إذا تحقق"), p: 12 },
+      { t: L("A moderate amount", "مبلغ معتدل"), p: 24 },
+      { t: L("Maximum possible", "أقصى قدر ممكن"), p: 36 },
+    ] },
+];
+
+/* ===== Presentation =====
+   Block kinds: p, bullets, tiles{cols,items}, timeline, example, takeaway, sim{id}, disclaimer
+   Each slide lists which versions it appears in: v:"both" | "full" | "simple".
+   Text that differs between versions is given as {full:L(), simple:L()}. */
+const V = (full, simple) => ({ full, simple });
+
+const SLIDES = [
+  { v: "both", kind: "title", title: L("Introduction to Investing", "مقدمة في الاستثمار"),
+    sub: V(L("The ideas behind investing: why to invest, how long, how much risk, and in what.", "الأفكار الأساسية في الاستثمار: لماذا تستثمر، ولأي مدة، وبأي قدر من المخاطر، وفي ماذا."), L("A plain-language guide to getting started with investing.", "دليل بلغة بسيطة لبدء الاستثمار.")),
+    disc: L("Disclaimer: Past performance is not indicative of future performance", "إخلاء مسؤولية: الأداء السابق ليس مؤشراً على الأداء المستقبلي") },
+
+  { v: "both", title: L("What can you do with your money today?", "ماذا يمكنك أن تفعل بأموالك اليوم؟"), blocks: [
+    { k: "bullets", items: [V(L("Today's financial landscape offers numerous options for managing your money, each with distinct implications suited to your goals.", "يوفّر المشهد المالي اليوم خيارات عديدة لإدارة أموالك، ولكل منها آثار مختلفة تتناسب مع أهدافك."), L("Today, there are many ways to manage your money. Each one works differently depending on your goals.", "اليوم، هناك طرق كثيرة لإدارة أموالك، وكل طريقة تعمل بشكل مختلف حسب أهدافك."))] },
+    { k: "tiles", cols: 2, items: [
+      { ic: "cash", h: L("Keep cash", "الاحتفاظ بالنقد"), p: V(L("Cash provides immediate access but loses purchasing power over time due to inflation.", "يوفّر النقد سهولة الوصول الفوري، لكنه يفقد قوته الشرائية بمرور الوقت بسبب التضخم."), L("Safe, but loses value because of rising prices (inflation).", "آمن، لكنه يفقد قيمته بسبب ارتفاع الأسعار (التضخم).")) },
+      { ic: "grow", h: L("Invest", "الاستثمار"), p: V(L("Put money to work in various asset classes to maintain and potentially grow wealth and build future financial security.", "استثمر أموالك في فئات أصول مختلفة للحفاظ على ثروتك وتنميتها المحتملة وبناء أمانك المالي في المستقبل."), L("Grow your money and earn more in the future.", "نمِّ أموالك واكسب أكثر في المستقبل.")) },
+    ] },
+    { k: "sim", id: "inflation" },
+  ] },
+
+  { v: "both", title: L("Why should you invest?", "لماذا يجب أن تستثمر؟"), blocks: [
+    { k: "tiles", cols: 2, items: [
+      { ic: "shield", h: L("Beat inflation", "تفوّق على التضخم"), p: V(L("Investments typically outpace inflation, preserving your purchasing power over time instead of allowing your money to lose value.", "تتفوق الاستثمارات عادةً على التضخم، فتحافظ على قوتك الشرائية بمرور الوقت بدلاً من أن تفقد أموالك قيمتها."), L("Keep up with rising prices.", "واكب ارتفاع الأسعار.")) },
+      { ic: "grow", h: L("Build long-term wealth", "ابنِ ثروة طويلة الأجل"), p: V(L("Compound returns grow your capital over time, helping you achieve financial goals, secure retirement, and build wealth.", "تنمّي العوائد المركّبة رأس مالك بمرور الوقت، مما يساعدك على تحقيق أهدافك المالية وتأمين تقاعدك وبناء الثروة."), L("Grow your money over many years.", "نمِّ أموالك على مدى سنوات عديدة.")) },
+      { ic: "coins", h: L("Create multiple income streams", "أنشئ مصادر دخل متعددة"), p: V(L("A diverse portfolio can generate passive income through dividends, interest payments, and capital appreciation.", "يمكن للمحفظة المتنوعة أن تولّد دخلاً سلبياً من خلال أرباح الأسهم ومدفوعات الفوائد وارتفاع قيمة رأس المال."), L("Earn extra money from different sources.", "اكسب أموالاً إضافية من مصادر مختلفة.")) },
+      { ic: "layers", only: "simple", h: L("Reduce risk through diversification", "قلّل المخاطر من خلال التنويع"), p: V(L("", ""), L("Don't put all your eggs in the same basket.", "لا تضع كل البيض في سلة واحدة.")) },
+    ] },
+    { k: "example", t: L("$10,000 growing at 6% a year becomes about $17,900 after 10 years and $32,100 after 20 years. In the second decade it grows by more than in the first, because gains start earning gains.", "مبلغ 10,000 دولار ينمو بنسبة 6% سنوياً يصبح حوالي 17,900 دولار بعد 10 سنوات و32,100 دولار بعد 20 سنة. في العقد الثاني ينمو بأكثر مما نما في الأول، لأن الأرباح تبدأ بتحقيق أرباح.") },
+  ] },
+
+  { v: "both", title: L("Key considerations before investing", "اعتبارات أساسية قبل الاستثمار"), blocks: [
+    { k: "tiles", cols: 2, items: [
+      { ic: "clock", h: L("Time horizon", "الأفق الزمني"), p: V(L("How long you plan to keep your money invested. Longer periods help you withstand market fluctuations and benefit from compounding returns.", "المدة التي تخطط لإبقاء أموالك مستثمرة خلالها. الفترات الأطول تساعدك على تحمّل تقلبات السوق والاستفادة من العوائد المركّبة."), L("How long can you leave your money invested?", "ما المدة التي يمكنك فيها ترك أموالك مستثمرة؟")) },
+      { ic: "shield", h: L("Risk tolerance", "تحمّل المخاطر"), p: V(L("Your financial ability to withstand potential losses. Only invest what you can afford to lose without affecting your essential expenses or financial stability.", "قدرتك المالية على تحمّل الخسائر المحتملة. استثمر فقط ما يمكنك تحمّل خسارته دون التأثير على نفقاتك الأساسية أو استقرارك المالي."), L("How much potential loss can you handle?", "ما مقدار الخسارة المحتملة التي يمكنك تحمّلها؟")) },
+      { ic: "wave", h: L("Volatility comfort", "الارتياح للتقلبات"), p: V(L("Your emotional capacity to handle market ups and downs. Understanding your response to market declines helps maintain discipline and avoid impulsive decisions.", "قدرتك النفسية على التعامل مع صعود الأسواق وهبوطها. فهم ردة فعلك تجاه انخفاض الأسواق يساعدك على الانضباط وتجنّب القرارات المتسرّعة."), L("How do you feel when markets go up and down?", "كيف تشعر عندما ترتفع الأسواق وتنخفض؟")) },
+      { ic: "target", h: L("Financial goals", "الأهداف المالية"), p: V(L("Your specific investment objectives. Clear goals, for retirement, education, major purchases, or wealth building, will guide your investment strategy and commitment level.", "أهدافك الاستثمارية المحددة. الأهداف الواضحة، للتقاعد أو التعليم أو المشتريات الكبيرة أو بناء الثروة، توجّه استراتيجيتك الاستثمارية ومستوى التزامك."), L("What do you want to achieve by investing?", "ما الذي تريد تحقيقه من الاستثمار؟")) },
+    ] },
+    { k: "takeaway", t: L("The Risk Profile questionnaire asks about exactly these four things.", "يسأل استبيان ملف المخاطر عن هذه الأمور الأربعة تحديداً.") },
+  ] },
+
+  { v: "both", title: L("What's your investment time horizon?", "ما هو أفقك الزمني للاستثمار؟"), blocks: [
+    { k: "bullets", only: "full", items: [V(L("Your investment time horizon, the length of time you expect to hold your investments, is a critical factor that shapes both your strategy and expected outcomes.", "أفقك الزمني للاستثمار، أي المدة التي تتوقع الاحتفاظ فيها باستثماراتك، عامل حاسم يشكّل استراتيجيتك والنتائج المتوقعة."), null)] },
+    { k: "timeline", items: [
+      { h: L("Short-term (1–3 years)", "قصير الأجل (1–3 سنوات)"), p: V(L("Focus on protecting your capital and keeping money accessible. Best for emergency funds, upcoming large purchases, or near-term goals.", "التركيز على حماية رأس المال وإبقاء الأموال متاحة. الأنسب لصناديق الطوارئ أو المشتريات الكبيرة القادمة أو الأهداف القريبة."), L("Your money stays accessible.", "تبقى أموالك متاحة.")) },
+      { h: L("Medium-term (3–7 years)", "متوسط الأجل (3–7 سنوات)"), p: V(L("Balance growth with reasonable protection. Suitable for education funds, home buying, or business investments.", "تحقيق التوازن بين النمو والحماية المعقولة. مناسب لصناديق التعليم أو شراء منزل أو الاستثمارات التجارية."), L("Need growth and some safety. Suitable for education funds, home buying, or business investments.", "تحتاج إلى نمو مع بعض الأمان. مناسب لصناديق التعليم أو شراء منزل أو الاستثمارات التجارية.")) },
+      { h: L("Long-term (7+ years)", "طويل الأجل (أكثر من 7 سنوات)"), p: V(L("Focus on growing wealth over time through compounding. Perfect for retirement planning or building family wealth.", "التركيز على تنمية الثروة بمرور الوقت من خلال العوائد المركّبة. مثالي للتخطيط للتقاعد أو بناء ثروة العائلة."), L("Focus on growing money over time. Perfect for retirement planning or building family wealth.", "التركيز على تنمية الأموال بمرور الوقت. مثالي للتخطيط للتقاعد أو بناء ثروة العائلة.")) },
+    ] },
+    { k: "bullets", only: "full", items: [V(L("Aligning your investment strategy with your time horizon allows you to optimise the risk-return trade-off, maximise the potential for meeting your goals, and maintain the discipline required during market fluctuations.", "مواءمة استراتيجيتك الاستثمارية مع أفقك الزمني تتيح لك تحسين المفاضلة بين المخاطر والعائد، وزيادة فرص تحقيق أهدافك، والحفاظ على الانضباط خلال تقلبات السوق."), null)] },
+    { k: "sim", id: "compound" },
+  ] },
+
+  { v: "full", title: L("Risk-return relationship: finding your comfort zone", "العلاقة بين المخاطر والعائد: اكتشف منطقة راحتك"), blocks: [
+    { k: "bullets", items: [V(L("Your risk tolerance directly impacts your potential returns and portfolio structure.", "يؤثر تحمّلك للمخاطر مباشرةً على عوائدك المحتملة وهيكل محفظتك."), null), V(L("Knowing your risk comfort zone helps create a sustainable strategy you can maintain through market cycles.", "معرفة منطقة راحتك تجاه المخاطر تساعد على وضع استراتيجية مستدامة يمكنك الالتزام بها عبر دورات السوق."), null)] },
+    { k: "split", left: { k: "sim", id: "curve" }, right: { k: "tiles", cols: 1, items: [
+      { h: L("Conservative investors", "المستثمرون المحافظون"), p: V(L("Focus on preserving capital with lower risk.", "يركزون على الحفاظ على رأس المال بمخاطر أقل."), null) },
+      { h: L("Moderate investors", "المستثمرون المعتدلون"), p: V(L("Balance growth with stability.", "يوازنون بين النمو والاستقرار."), null) },
+      { h: L("Aggressive investors", "المستثمرون الجريئون"), p: V(L("Pursue maximum growth with higher risk.", "يسعون إلى أقصى نمو مع مخاطر أعلى."), null) },
+    ] } },
+  ] },
+
+  { v: "both", title: L("Matching your investment strategy to your financial objectives", "مواءمة استراتيجيتك الاستثمارية مع أهدافك المالية"), blocks: [
+    { k: "tiles", cols: 2, items: [
+      { ic: "coins", h: L("Income generating", "توليد الدخل"), p: V(L("Focus on steady, reliable cash flow through dividends, interest payments, and rental income.", "التركيز على تدفق نقدي ثابت وموثوق من خلال أرباح الأسهم ومدفوعات الفوائد ودخل الإيجارات."), L("Gives you steady money like rent or dividends.", "يمنحك أموالاً منتظمة مثل الإيجار أو أرباح الأسهم.")),
+        list: V([L("Often favoured by income-dependent investors", "يفضّله غالباً المستثمرون المعتمدون على الدخل"), L("Lower growth potential", "إمكانية نمو أقل"), L("Lower volatility", "تقلبات أقل"), L("May offer inflation protection", "قد يوفر حماية من التضخم")], [L("Often favoured by income-dependent investors", "يفضّله غالباً المستثمرون المعتمدون على الدخل"), L("Lower growth potential", "إمكانية نمو أقل")]),
+        foot: V(L("Examples: bonds/sukuks, dividend stocks, REITs, rental properties", "أمثلة: السندات/الصكوك، أسهم توزيعات الأرباح، صناديق الاستثمار العقاري، العقارات المؤجرة"), null) },
+      { ic: "grow", h: L("Wealth accumulating", "تراكم الثروة"), p: V(L("Emphasis on long-term capital appreciation and compound growth through reinvestment.", "التركيز على ارتفاع قيمة رأس المال على المدى الطويل والنمو المركّب من خلال إعادة الاستثمار."), L("Grow your money long-term.", "نمِّ أموالك على المدى الطويل.")),
+        list: V([L("Prioritises total return over income", "يعطي الأولوية للعائد الإجمالي على الدخل"), L("Higher growth potential", "إمكانية نمو أعلى"), L("May experience greater volatility", "قد يشهد تقلبات أكبر"), L("Suited for investors with longer time horizons", "مناسب للمستثمرين ذوي الآفاق الزمنية الأطول")], [L("Prioritises total return over income", "يعطي الأولوية للعائد الإجمالي على الدخل"), L("Higher growth potential", "إمكانية نمو أعلى")]),
+        foot: V(L("Examples: growth stocks, index funds, mutual funds, appreciating real estate", "أمثلة: أسهم النمو، صناديق المؤشرات، صناديق الاستثمار المشتركة، العقارات المرتفعة القيمة"), null) },
+    ] },
+    { k: "takeaway", t: L("Key takeaway: your approach shapes your asset class choices and should align with your financial goals, time horizon, and risk tolerance.", "الخلاصة: نهجك يحدد اختياراتك لفئات الأصول، ويجب أن يتوافق مع أهدافك المالية وأفقك الزمني وتحمّلك للمخاطر.") },
+  ] },
+
+  { v: "both", title: L("What is an asset class?", "ما هي فئة الأصول؟"), blocks: [
+    { k: "tiles", cols: 2, items: [
+      { ic: "layers", h: L("Definition", "التعريف"), p: V(L("A grouping of investments that exhibit similar characteristics and are subject to the same laws and regulations. The major asset classes are equities, fixed income, alternative investments (private equity, real estate, commodities), and cash/cash equivalents.", "مجموعة من الاستثمارات ذات خصائص متشابهة وتخضع للقوانين واللوائح نفسها. فئات الأصول الرئيسية هي الأسهم والدخل الثابت والاستثمارات البديلة (الملكية الخاصة، العقارات، السلع) والنقد وما يعادله."), L("Asset classes are types of investments. Examples: stocks, bonds, real estate.", "فئات الأصول هي أنواع الاستثمارات. أمثلة: الأسهم، السندات، العقارات.")) },
+      { ic: "pie", h: L("Diversifying with asset classes", "التنويع عبر فئات الأصول"), p: V(L("Investing across different asset classes can reduce overall portfolio risk. When some assets decline, others may rise, helping to balance the portfolio.", "الاستثمار في فئات أصول مختلفة يمكن أن يقلل المخاطر الإجمالية للمحفظة. عندما تنخفض بعض الأصول، قد ترتفع أخرى، مما يساعد على تحقيق التوازن في المحفظة."), L("Each type behaves differently. Investing in different asset classes can help lower your risk. If one goes down, another may go up.", "كل نوع يتصرف بشكل مختلف. الاستثمار في فئات أصول مختلفة يمكن أن يساعد على خفض مخاطرك. إذا انخفض أحدها، قد يرتفع آخر.")) },
+    ] },
+    { k: "example", t: L("A portfolio that is 100% in shares falls 20% in a bad year. If instead half were in shares (−20%) and half in bonds (+2%), the whole portfolio would fall about 9%.", "محفظة مستثمرة بالكامل في الأسهم تنخفض 20% في سنة سيئة. أما لو كان نصفها في الأسهم (−20%) ونصفها في السندات (+2%)، لانخفضت المحفظة كلها بنحو 9% فقط.") },
+  ] },
+
+  { v: "both", title: L("Main asset classes overview", "نظرة عامة على فئات الأصول الرئيسية"), blocks: [
+    { k: "tiles", cols: 3, plain: true, items: [
+      { ic: "bars", h: L("Equities", "الأسهم"), p: V(L("Company ownership shares", "حصص ملكية في الشركات"), L("Shares in a company", "حصص في شركة")) },
+      { ic: "cert", h: L("Fixed income", "الدخل الثابت"), p: V(L("Bonds and sukuks", "السندات والصكوك"), L("Bonds and sukuks", "السندات والصكوك")) },
+      { ic: "cash", h: L("Cash equivalents", "النقد وما يعادله"), p: V(L("Liquid short-term investments", "استثمارات قصيرة الأجل عالية السيولة"), L("Bank deposits", "الودائع المصرفية")) },
+      { ic: "building", h: L("Real estate", "العقارات"), p: V(L("Property investments", "الاستثمارات العقارية"), L("Property investments", "الاستثمارات العقارية")) },
+      { ic: "gold", h: L("Commodities", "السلع"), p: V(L("Physical goods like gold", "سلع مادية مثل الذهب"), L("Physical goods like gold or oil", "سلع مادية مثل الذهب أو النفط")) },
+      { ic: "case", h: L("Other alternatives", "بدائل أخرى"), p: V(L("Private equity, private credit and hedge funds", "الملكية الخاصة، الائتمان الخاص، صناديق التحوط"), L("Private equity, private credit and hedge funds", "الملكية الخاصة، الائتمان الخاص، صناديق التحوط")) },
+    ] },
+  ] },
+
+  { v: "both", title: L("Equities", "الأسهم"), blocks: [
+    { k: "bullets", items: [
+      V(L("Equities represent ownership shares in companies and offer both growth potential and unique risks.", "تمثل الأسهم حصص ملكية في الشركات، وتوفر إمكانية النمو إلى جانب مخاطر خاصة بها."), L("They often grow more than other investments over time, but their prices can go up and down with the market, the company's situation, or the economy.", "غالباً ما تنمو أكثر من الاستثمارات الأخرى بمرور الوقت، لكن أسعارها قد ترتفع وتنخفض مع السوق أو وضع الشركة أو الاقتصاد.")),
+      V(L("While they historically outperform other asset classes over long periods, they expose investors to market fluctuations, company-specific risks, and economic downturns.", "رغم أنها تفوقت تاريخياً على فئات الأصول الأخرى على المدى الطويل، فإنها تعرّض المستثمرين لتقلبات السوق والمخاطر الخاصة بالشركات والركود الاقتصادي."), null) ] },
+    { k: "tiles", cols: 3, items: [
+      { h: L("What are equities?", "ما هي الأسهم؟"), p: V(L("Ownership stakes in companies that trade on public markets", "حصص ملكية في شركات تُتداول في الأسواق العامة"), L("Equities are shares in companies", "الأسهم هي حصص في الشركات")) },
+      { h: L("Return potential", "العائد المحتمل"), p: V(L("Higher long-term returns than most asset classes", "عوائد طويلة الأجل أعلى من معظم فئات الأصول"), L("Higher long-term returns than most asset classes", "عوائد طويلة الأجل أعلى من معظم فئات الأصول")) },
+      { h: L("Key risks", "المخاطر الرئيسية"), p: V(L("Higher volatility and potential capital losses", "تقلبات أعلى وخسائر محتملة في رأس المال"), L("High volatility", "تقلبات عالية")) },
+    ] },
+    { k: "example", t: L("You buy 100 shares at $10, so $1,000. If the price rises to $12, they are worth $1,200, and you may also receive dividends. If it falls to $8, they are worth $800.", "تشتري 100 سهم بسعر 10 دولارات، أي 1,000 دولار. إذا ارتفع السعر إلى 12 دولاراً تصبح قيمتها 1,200 دولار، وقد تحصل أيضاً على توزيعات أرباح. وإذا انخفض إلى 8 دولارات تصبح قيمتها 800 دولار.") },
+  ] },
+
+  { v: "both", title: V(L("Fixed income: bonds and sukuks", "الدخل الثابت: السندات والصكوك"), L("Fixed income", "الدخل الثابت")), blocks: [
+    { k: "bullets", items: [V(L("Fixed income investments provide predictable income streams, portfolio diversification, and may preserve capital during market downturns.", "توفر استثمارات الدخل الثابت تدفقات دخل يمكن التنبؤ بها، وتنويعاً للمحفظة، وقد تحافظ على رأس المال خلال فترات تراجع الأسواق."), L("Fixed income investments give predictable income payments. When you buy fixed income, you give a loan to the issuer and receive periodic payments.", "تمنحك استثمارات الدخل الثابت دفعات دخل يمكن التنبؤ بها. عندما تشتري أداة دخل ثابت، فإنك تقرض الجهة المُصدِرة وتحصل على دفعات دورية."))] },
+    { k: "tiles", cols: 2, only: "full", items: [
+      { ic: "cert", h: L("Traditional bonds", "السندات التقليدية"), p: V(L("When you buy bonds, you give a loan to the issuer and receive periodic interest payments. Common types include government, corporate, and municipal bonds.", "عندما تشتري سندات، فإنك تقرض الجهة المُصدِرة وتحصل على مدفوعات فائدة دورية. تشمل الأنواع الشائعة السندات الحكومية وسندات الشركات والسندات البلدية."), null) },
+      { ic: "crescent", h: L("Sukuks", "الصكوك"), p: V(L("Sharia-compliant, asset-backed securities. No direct interest payments; profit-sharing instead. They represent partial ownership in an underlying asset.", "أوراق مالية متوافقة مع الشريعة ومدعومة بأصول. لا توجد مدفوعات فائدة مباشرة، بل تقاسم للأرباح. وتمثل ملكية جزئية في أصل أساسي."), null) },
+    ] },
+    { k: "tiles", cols: 1, plain: true, items: [
+      { h: L("Risk profile", "ملف المخاطر"), p: V(L("Lower risk and return than equities. Face interest rate and credit risks.", "مخاطر وعوائد أقل من الأسهم. تتعرض لمخاطر أسعار الفائدة ومخاطر الائتمان."), L("Lower risk and return than equities. Interest rate and credit risks.", "مخاطر وعوائد أقل من الأسهم. مخاطر أسعار الفائدة والائتمان.")) },
+    ] },
+    { k: "example", t: L("A $10,000 bond paying 5% a year pays you $500 every year and gives back the $10,000 when it matures, as long as the issuer does not default.", "سند بقيمة 10,000 دولار يدفع 5% سنوياً يمنحك 500 دولار كل عام ويعيد إليك 10,000 دولار عند الاستحقاق، ما دامت الجهة المُصدِرة لا تتخلف عن السداد.") },
+  ] },
+
+  { v: "both", title: L("Alternative investments", "الاستثمارات البديلة"), blocks: [
+    { k: "bullets", items: [
+      V(L("Alternative investments are assets beyond stocks, bonds, and cash that can add variety to your investments.", "الاستثمارات البديلة هي أصول خارج نطاق الأسهم والسندات والنقد، ويمكن أن تضيف تنوعاً إلى استثماراتك."), L("Alternative investments are assets other than stocks, bonds, and cash.", "الاستثمارات البديلة هي أصول غير الأسهم والسندات والنقد.")),
+      V(L("Alternative investments usually have higher risks than regular investments but can spread out your risk and possibly give better returns.", "عادةً ما تنطوي الاستثمارات البديلة على مخاطر أعلى من الاستثمارات العادية، لكنها قد توزّع مخاطرك وربما تحقق عوائد أفضل."), null) ] },
+    { k: "tiles", cols: 4, items: [
+      { ic: "building", h: L("Real estate", "العقارات"), list: V([L("Property investments with medium to high risk.", "استثمارات عقارية بمخاطر متوسطة إلى عالية."), L("Can give steady income from rent and may grow in value over time.", "يمكن أن توفر دخلاً ثابتاً من الإيجار وقد ترتفع قيمتها بمرور الوقت.")], [L("Own properties and earn rent.", "امتلك عقارات واكسب الإيجار.")]) },
+      { ic: "gold", h: L("Commodities", "السلع"), list: V([L("Basic goods like gold, oil, or farm products.", "سلع أساسية مثل الذهب أو النفط أو المنتجات الزراعية."), L("Medium to high risk with prices changing based on supply and demand.", "مخاطر متوسطة إلى عالية، مع تغيّر الأسعار حسب العرض والطلب.")], [L("e.g. gold, silver and oil.", "مثل الذهب والفضة والنفط.")]) },
+      { ic: "case", h: L("Private equity", "الملكية الخاصة"), list: V([L("Money put into private companies.", "أموال تُستثمر في شركات خاصة."), L("Higher risk with chance for higher returns but needs longer time commitment.", "مخاطر أعلى مع فرصة لعوائد أعلى، لكنها تتطلب التزاماً زمنياً أطول.")], [L("Invest in private companies.", "استثمر في شركات خاصة.")]) },
+      { ic: "wave", h: L("Hedge funds", "صناديق التحوط"), list: V([L("Managed investment pools using various methods.", "مجمّعات استثمارية مُدارة تستخدم أساليب متنوعة."), L("Higher risk with potential for better returns especially during market downturns.", "مخاطر أعلى مع إمكانية عوائد أفضل، خاصة خلال تراجع الأسواق.")], [L("Professional managers try to grow your money.", "يسعى مديرون محترفون إلى تنمية أموالك."), L("Highly varied in the strategies used.", "تتنوع الاستراتيجيات المستخدمة بشكل كبير.")]) },
+    ] },
+  ] },
+
+  { v: "full", title: L("Alternative investments: real estate", "الاستثمارات البديلة: العقارات"), blocks: [
+    { k: "tiles", cols: 2, plain: true, items: [
+      { h: L("Overview", "نظرة عامة"), p: V(L("Professionally managed investment pools targeting commercial, residential, and infrastructure properties. Funds offer diversification across property types and geographic regions.", "مجمّعات استثمارية تُدار باحترافية وتستهدف العقارات التجارية والسكنية والبنية التحتية. توفر الصناديق تنويعاً عبر أنواع العقارات والمناطق الجغرافية."), null) },
+      { h: L("Investment considerations", "اعتبارات الاستثمار"), list: V([L("A higher minimum investment.", "حد أدنى أعلى للاستثمار."), L("Manager selection is critically important for fund investments.", "اختيار المدير أمر بالغ الأهمية في الاستثمار عبر الصناديق.")], null) },
+      { h: L("Key strategies", "الاستراتيجيات الرئيسية"), list: V([L("Student housing", "سكن الطلاب"), L("Medical real estate", "العقارات الطبية"), L("Warehouses and logistics", "المستودعات والخدمات اللوجستية"), L("Data centres", "مراكز البيانات"), L("Residential", "العقارات السكنية")], null) },
+      { h: L("Risk-return profile", "ملف المخاطر والعائد"), list: V([L("Target returns of 8–9% annually through rental income and appreciation.", "عوائد مستهدفة بنسبة 8–9% سنوياً من دخل الإيجار وارتفاع القيمة."), L("Moderate risk with inflation protection benefits.", "مخاطر معتدلة مع مزايا الحماية من التضخم."), L("Market cycles and interest rate sensitivity affect performance.", "تؤثر دورات السوق والحساسية لأسعار الفائدة على الأداء.")], null) },
+    ] },
+  ] },
+
+  { v: "full", title: L("Alternative investments: private equity", "الاستثمارات البديلة: الملكية الخاصة"), blocks: [
+    { k: "tiles", cols: 2, plain: true, items: [
+      { h: L("What is private equity?", "ما هي الملكية الخاصة؟"), p: V(L("Private equity involves investing in companies not publicly traded, offering exclusive access to private markets.", "تعني الملكية الخاصة الاستثمار في شركات غير مدرجة في الأسواق العامة، مما يتيح وصولاً حصرياً إلى الأسواق الخاصة."), null) },
+      { h: L("Investment considerations", "اعتبارات الاستثمار"), list: V([L("A higher minimum investment.", "حد أدنى أعلى للاستثمار."), L("Can invest in a single company or in funds that invest in multiple companies.", "يمكن الاستثمار في شركة واحدة أو في صناديق تستثمر في عدة شركات."), L("Manager selection is critically important for fund investments.", "اختيار المدير أمر بالغ الأهمية في الاستثمار عبر الصناديق.")], null) },
+      { h: L("Key strategies", "الاستراتيجيات الرئيسية"), list: V([L("Target companies receive operational enhancements, strategic guidance, and capital restructuring.", "تحصل الشركات المستهدفة على تحسينات تشغيلية وتوجيه استراتيجي وإعادة هيكلة لرأس المال."), L("Exit strategies include IPOs or strategic sales.", "تشمل استراتيجيات التخارج الطرح العام الأولي أو البيع لمشترٍ استراتيجي.")], null) },
+      { h: L("Risk and return", "المخاطر والعائد"), list: V([L("Historical returns average 10–15% annually but carry higher risk.", "بلغ متوسط العوائد التاريخية 10–15% سنوياً، لكنها تنطوي على مخاطر أعلى."), L("Diversification across multiple investments or funds is essential to mitigate concentration risk.", "التنويع عبر استثمارات أو صناديق متعددة ضروري للحد من مخاطر التركّز."), L("Due diligence and market timing prove critical for success.", "العناية الواجبة وتوقيت السوق عاملان حاسمان للنجاح.")], null) },
+    ] },
+  ] },
+
+  { v: "both", title: L("Risk vs. reward scenario", "سيناريو المخاطر مقابل العائد"), blocks: [
+    { k: "bullets", items: [V(L("Different asset classes offer varying risk-return profiles, i.e., potential gains and losses.", "تقدم فئات الأصول المختلفة ملفات متفاوتة من المخاطر والعائد، أي أرباحاً وخسائر محتملة."), L("Different asset classes offer varying risk-return profiles, i.e., potential gains and losses.", "تقدم فئات الأصول المختلفة ملفات متفاوتة من المخاطر والعائد، أي أرباحاً وخسائر محتملة.")), V(L("The chart shows potential gains and losses for a $1,000 investment over 15 years across asset classes. Change the amount to see it for your own figure.", "يوضح الرسم البياني الأرباح والخسائر المحتملة لاستثمار 1,000 دولار على مدى 15 عاماً عبر فئات الأصول. غيّر المبلغ لترى النتيجة لرقمك الخاص."), L("The chart shows potential gains and losses for a $1,000 investment over 15 years. Change the amount to see it for your own figure.", "يوضح الرسم البياني الأرباح والخسائر المحتملة لاستثمار 1,000 دولار على مدى 15 عاماً. غيّر المبلغ لترى النتيجة لرقمك الخاص."))] },
+    { k: "sim", id: "riskreward" },
+    { k: "takeaway", only: "simple", t: L("Higher risk may bring higher returns, but also bigger losses, while lower risk usually means smaller, steadier returns. Nothing is guaranteed.", "المخاطر الأعلى قد تجلب عوائد أعلى، لكن أيضاً خسائر أكبر، بينما المخاطر الأقل تعني عادةً عوائد أصغر وأكثر استقراراً. لا شيء مضمون.") },
+  ] },
+
+  { v: "both", title: V(L("Asset allocation strategies", "استراتيجيات توزيع الأصول"), L("Investment portfolio strategies", "استراتيجيات المحافظ الاستثمارية")), blocks: [
+    { k: "bullets", items: [V(L("The risk-return profiles of a range of portfolios with a rough guide of varying asset allocations.", "ملفات المخاطر والعائد لمجموعة من المحافظ مع دليل تقريبي لتوزيعات الأصول المختلفة."), L("The risk-return profiles of a range of portfolios with a rough guide for asset allocations.", "ملفات المخاطر والعائد لمجموعة من المحافظ مع دليل تقريبي لتوزيع الأصول.")), V(L("Note that alternatives is a category of asset classes with varying risk-return profiles. Select a column to see its mix.", "لاحظ أن البدائل فئة تضم أصولاً بملفات مخاطر وعائد متفاوتة. اختر عموداً لرؤية مزيجه."), L("Note that alternatives is a category of asset classes with varying risk-return profiles. Select a column to see its mix.", "لاحظ أن البدائل فئة تضم أصولاً بملفات مخاطر وعائد متفاوتة. اختر عموداً لرؤية مزيجه."))] },
+    { k: "sim", id: "alloc" },
+  ] },
+
+  { v: "both", title: L("Shariah vs. non-Shariah investments", "الاستثمارات المتوافقة مع الشريعة مقابل غير المتوافقة"), blocks: [
+    { k: "bullets", items: [V(L("Understanding the key differences between Islamic-compliant and conventional investments:", "فهم الاختلافات الرئيسية بين الاستثمارات المتوافقة مع الشريعة الإسلامية والاستثمارات التقليدية:"), L("Understanding the key differences between Islamic-compliant and conventional investments:", "فهم الاختلافات الرئيسية بين الاستثمارات المتوافقة مع الشريعة الإسلامية والاستثمارات التقليدية:"))] },
+    { k: "tiles", cols: 2, items: [
+      { ic: "crescent", h: L("Shariah-compliant investments", "الاستثمارات المتوافقة مع الشريعة"), p: V(L("Financial products adhering to Islamic principles.", "منتجات مالية تلتزم بمبادئ الشريعة الإسلامية."), L("Financial products adhering to Islamic principles.", "منتجات مالية تلتزم بمبادئ الشريعة الإسلامية.")),
+        list: V([L("Prohibits interest", "تحظر الفائدة"), L("Excludes gambling, alcohol, pork, weapons industries", "تستبعد صناعات القمار والكحول ولحم الخنزير والأسلحة"), L("Requires asset-backed transactions", "تتطلب معاملات مدعومة بأصول"), L("Includes sukuks, Islamic funds, ethical equities", "تشمل الصكوك والصناديق الإسلامية والأسهم الأخلاقية"), L("Based on profit and risk-sharing models", "تقوم على نماذج تقاسم الأرباح والمخاطر")],
+                  [L("Prohibits interest", "تحظر الفائدة"), L("No gambling, alcohol, pork, weapons industries, etc.", "لا قمار ولا كحول ولا لحم خنزير ولا صناعات أسلحة، إلخ."), L("Includes sukuks, Islamic funds, ethical equities", "تشمل الصكوك والصناديق الإسلامية والأسهم الأخلاقية"), L("Based on profit and risk-sharing models", "تقوم على نماذج تقاسم الأرباح والمخاطر")]) },
+      { ic: "bank", h: L("Non-Shariah investments", "الاستثمارات غير المتوافقة مع الشريعة"), p: V(L("Conventional instruments without religious restrictions.", "أدوات تقليدية دون قيود دينية."), L("Conventional investments without religious restrictions.", "استثمارات تقليدية دون قيود دينية.")),
+        list: V([L("Often interest-based", "غالباً ما تقوم على الفائدة"), L("No sector restrictions", "لا قيود على القطاعات"), L("Encompasses traditional bonds, banking products, unrestricted equities", "تشمل السندات التقليدية والمنتجات المصرفية والأسهم دون قيود"), L("May include speculative elements", "قد تتضمن عناصر مضاربة")],
+                  [L("Often interest-based", "غالباً ما تقوم على الفائدة"), L("No sector restrictions", "لا قيود على القطاعات"), L("Includes traditional bonds, alcohol, etc.", "تشمل السندات التقليدية والكحول، إلخ."), L("May include speculative elements", "قد تتضمن عناصر مضاربة")]) },
+    ] },
+  ] },
+];
+
+/* Risk vs reward data from the deck: outcome of $1,000 over 15 years */
+const RISK_REWARD = [
+  { n: L("Cash (deposits)", "النقد (الودائع)"), up: 450, dn: -50 },
+  { n: L("Fixed income", "الدخل الثابت"), up: 990, dn: -150 },
+  { n: L("Real estate", "العقارات"), up: 2000, dn: -350 },
+  { n: L("Commodities", "السلع"), up: 2120, dn: -300 },
+  { n: L("Stocks", "الأسهم"), up: 3200, dn: -550 },
+  { n: L("Private equity", "الملكية الخاصة"), up: 6100, dn: -650 },
+];
+
+/* Asset allocation table from the deck */
+const ALLOC = {
+  cols: [
+    { id: "A", n: L("Income", "الدخل") }, { id: "B", n: L("Yield", "العائد الجاري") }, { id: "C", n: L("Balanced", "متوازن") },
+    { id: "D", n: L("Growth", "النمو") }, { id: "E", n: L("Equities", "الأسهم") },
+  ],
+  rows: [
+    { n: L("Cash", "النقد"), c: "#7FA7C9", v: [3, 3, 3, 3, 3] },
+    { n: L("Fixed income", "الدخل الثابت"), c: "#E58A3A", v: [74, 50, 33, 15, 0] },
+    { n: L("Equities", "الأسهم"), c: "#3E8A4F", v: [13, 32, 48, 65, 79] },
+    { n: L("Alternatives*", "البدائل*"), c: "#C9A44C", v: [10, 15, 16, 17, 18] },
+  ],
+  note: L("* Private equity, real estate, commodities, hedge funds", "* الملكية الخاصة، العقارات، السلع، صناديق التحوط"),
+};
+
+const SIM_TXT = {
+  inflT: L("What inflation does to cash", "ماذا يفعل التضخم بالنقد"),
+  amount: L("Amount", "المبلغ"), infl: L("Inflation per year", "التضخم السنوي"), ret: L("Investment return per year", "عائد الاستثمار السنوي"), years: L("Years", "السنوات"),
+  cashReal: L("Cash, in today's money", "النقد بقيمة اليوم"), invReal: L("Invested, in today's money", "المستثمر بقيمة اليوم"),
+  lost: L("Purchasing power lost", "القوة الشرائية المفقودة"),
+  inflEx: L("Kept as cash, {a} buys only what {b} buys today after {y} years.", "إذا احتفظت بها نقداً، فإن {a} تشتري بعد {y} سنوات فقط ما تشتريه {b} اليوم."),
+  compT: L("How compounding grows your money", "كيف تنمّي العوائد المركّبة أموالك"),
+  initial: L("Starting amount", "المبلغ الأولي"), monthly: L("Added every month", "الإضافة الشهرية"),
+  finalV: L("Value at the end", "القيمة في النهاية"), paidIn: L("You put in", "ما استثمرته"), growth: L("Growth from returns", "النمو من العوائد"),
+  total: L("Total value", "القيمة الإجمالية"), contrib: L("Money put in", "الأموال المستثمرة"),
+  rrT: L("Best and worst outcomes over 15 years", "أفضل وأسوأ النتائج على مدى 15 عاماً"),
+  gain: L("Potential gain", "الربح المحتمل"), loss: L("Potential loss", "الخسارة المحتملة"),
+  curveX: L("Potential for risk", "احتمال المخاطر"), curveY: L("Potential for return", "احتمال العائد"),
+  veryCons: L("Very conservative", "محافظ جداً"), moderate: L("Moderate", "معتدل"), veryAgg: L("Very aggressive", "جريء جداً"),
+  profile: L("Investment profile / risk tolerance", "الملف الاستثماري / تحمّل المخاطر"), strategy: L("Investment strategy", "الاستراتيجية الاستثمارية"),
+  classes: L("Asset classes in %", "فئات الأصول بالنسبة المئوية"),
+  illus: L("Illustration with constant yearly rates. Real returns vary year to year and are not guaranteed.", "مثال توضيحي بمعدلات سنوية ثابتة. العوائد الفعلية تتفاوت من سنة لأخرى وليست مضمونة."),
+};
+
+/* Midstar Investor Profile — application logic (rendering, scoring, simulators). */
+/* ===== App ===== */
+const S = {
+  lang: "en", view: "home", ver: "full", slide: 0,
+  q: { step: 0, ans: {}, self: null, name: "", date: new Date().toISOString().slice(0, 10), open: {}, allHelp: false, showPts: false },
+  sim: { inflation: { amt: 100000, inf: 3, ret: 6, yrs: 10 }, compound: { ini: 50000, mon: 1000, ret: 6, yrs: 15 }, riskreward: { amt: 1000 }, alloc: { sel: 2 } },
+};
+try { const l = localStorage.getItem("kyc-lang"); if (l === "ar" || l === "en") S.lang = l; } catch (e) {}
+try { const v = localStorage.getItem("kyc-ver"); if (v === "full" || v === "simple") S.ver = v; } catch (e) {}
+const VIEWS = ["home", "learn", "quiz", "tools"];
+{ const h = (location.hash || "").slice(1); if (VIEWS.includes(h)) S.view = h; }
+
+const STEPS = ["intro", ...QUESTIONS.map(q => q.id), "self", "result"];
+const SHORT = {
+  R1: L("Traditional investments", "الاستثمارات التقليدية"), R2: L("Gold and real estate", "الذهب والعقارات"), R3: L("Alternative investments", "الاستثمارات البديلة"),
+  R4: L("Choosing a portfolio", "اختيار محفظة"), R5: L("Time horizon", "الأفق الزمني"), R6: L("Short-term loss", "الخسارة قصيرة الأجل"),
+  R7: L("Reaction to losses", "ردة الفعل على الخسائر"), R8: L("Risk outlook", "النظرة إلى المخاطر"),
+  L1: L("Unexpected withdrawals", "السحوبات غير المتوقعة"), L2: L("Locked-in investments", "الاستثمارات طويلة الالتزام"), L3: L("Regular income", "الدخل المنتظم"),
+  self: L("How you see yourself", "كيف ترى نفسك"),
+};
+
+/* ---------- helpers ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function pick(o) {
+  if (o == null) return null;
+  if (typeof o === "object" && ("full" in o || "simple" in o)) o = o[S.ver];
+  if (o == null) return null;
+  if (typeof o === "string") return o;
+  return o[S.lang] ?? o.en;
+}
+const t = o => esc(pick(o) ?? "");
+const fill = (s, m) => s.replace(/\{(\w+)\}/g, (_, k) => m[k]);
+const usd = n => (n < 0 ? "−$" : "$") + Math.round(Math.abs(n)).toLocaleString("en-US");
+const usdLab = n => Math.abs(n) >= 1e6 ? (n < 0 ? "−$" : "$") + (Math.abs(n) / 1e6).toFixed(2).replace(/\.?0+$/, "") + "m" : usd(n);
+const usdShort = n => { const a = Math.abs(n), s = n < 0 ? "−$" : "$"; return a >= 1e6 ? s + (a / 1e6).toFixed(a % 1e6 ? 1 : 0) + "m" : a >= 1e3 ? s + Math.round(a / 1e3) + "k" : s + Math.round(a); };
+const isFramed = (() => { try { return window.self !== window.top; } catch (e) { return true; } })();
+
+const ICONS = {
+  cash: '<rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9v.01M18 15v.01"/>',
+  grow: '<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
+  shield: '<path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/>',
+  coins: '<ellipse cx="9" cy="7" rx="6" ry="2.5"/><path d="M3 7v4c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5V7"/><path d="M9 16.5c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5v-4c0-1.2-2-2.2-4.6-2.4"/>',
+  layers: '<path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  wave: '<path d="M2 12c2.5-5 5-5 7.5 0s5 5 7.5 0 3.5-3 5-2"/>',
+  target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>',
+  pie: '<path d="M12 3v9h9a9 9 0 1 1-9-9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/>',
+  bars: '<path d="M4 20V11M10 20V5M16 20v-7M22 20H2"/>',
+  cert: '<rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M7 8h10M7 11h6"/><circle cx="16.5" cy="17" r="2.5"/><path d="M15.2 19l-.7 3 2-1 2 1-.7-3"/>',
+  building: '<path d="M4 21V5l8-2v18M12 8l8 2v11M2 21h20M7 8v.01M7 12v.01M7 16v.01M16 13v.01M16 17v.01"/>',
+  gold: '<path d="M3 19l3-6h6l3 6zM9 13l3-6h6l3 6"/><path d="M12 13h3"/>',
+  case: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/>',
+  crescent: '<path d="M15 3.5A9 9 0 1 0 20.5 15 7 7 0 0 1 15 3.5z"/>',
+  bank: '<path d="M3 9l9-5 9 5M5 9v9M9.5 9v9M14.5 9v9M19 9v9M3 21h18"/>',
+  arrowL: '<path d="M15 6l-6 6 6 6"/>', arrowR: '<path d="M9 6l6 6-6 6"/>', info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/>',
+  check: '<path d="M5 12l5 5 9-10"/>',
+};
+const icon = (k, cls = "ic") => ICONS[k] ? `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[k]}</svg>` : "";
+
+/* ---------- shell ---------- */
+function setView(v) {
+  S.view = v;
+  try { history.replaceState(null, "", "#" + v); } catch (e) {}
+  render(); window.scrollTo(0, 0);
+}
+function render() {
+  document.documentElement.lang = S.lang;
+  document.documentElement.dir = S.lang === "ar" ? "rtl" : "ltr";
+  const app = $("#app");
+  app.innerHTML = `
+  <header class="bar"><div class="wrap">
+    <a class="brand" href="#home" data-go="home"><b>MIDSTAR</b><span>${t(UI.brandSub)}</span></a>
+    <nav class="tabs" aria-label="Sections">${VIEWS.map(v => `<button data-go="${v}" ${S.view === v ? 'aria-current="page"' : ""}>${t(UI.nav[v])}</button>`).join("")}</nav>
+    <button class="lang" id="langBtn" lang="${S.lang === "en" ? "ar" : "en"}">${t(UI.langBtn)}</button>
+  </div></header>
+  <main class="wrap"><section class="view" id="view">${({ home: viewHome, learn: viewLearn, quiz: viewQuiz, tools: viewTools })[S.view]()}</section></main>
+  <footer><div class="wrap">${t(UI.disclaimerFoot)}</div></footer>`;
+  bindSims(app);
+}
+document.addEventListener("click", e => {
+  const go = e.target.closest("[data-go]");
+  if (go) { e.preventDefault(); setView(go.dataset.go); if (go.dataset.ver) { S.ver = go.dataset.ver; S.slide = 0; render(); } return; }
+  if (e.target.closest("#langBtn")) { S.lang = S.lang === "en" ? "ar" : "en"; try { localStorage.setItem("kyc-lang", S.lang); } catch (er) {} render(); return; }
+});
+
+/* ---------- home ---------- */
+function viewHome() {
+  return `
+  <div class="hero">
+    <div>
+      <div class="eyebrow">${t(UI.heroEyebrow)}</div>
+      <h1 style="margin-top:10px">${t(UI.heroTitle)}</h1>
+      <p class="lead">${t(UI.heroLead)}</p>
+      <div class="cta-row">
+        <button class="btn primary" data-go="quiz">${t(UI.ctaQuiz)}</button>
+        <button class="btn ghost" data-go="learn">${t(UI.ctaLearn)}</button>
+      </div>
+    </div>
+    <div class="hero-art">
+      <h3 style="font-size:19px;margin-bottom:12px">${t(UI.howTitle)}</h3>
+      <div class="steps-mini">${UI.how.map((h, i) => `<div><i>${i + 1}</i><span>${t(h)}</span></div>`).join("")}</div>
+      <div style="margin-top:16px">${matrixSVG(null)}</div>
+    </div>
+  </div>
+  <div class="cards3">
+    <div class="card">${icon("layers")}<h3>${t(UI.card1T)}</h3><p class="muted">${t(UI.card1P)}</p><button class="btn ghost small go" data-go="learn" data-ver="full">${t(UI.open)}</button></div>
+    <div class="card">${icon("target")}<h3>${t(UI.card2T)}</h3><p class="muted">${t(UI.card2P)}</p><button class="btn ghost small go" data-go="learn" data-ver="simple">${t(UI.open)}</button></div>
+    <div class="card">${icon("shield")}<h3>${t(UI.card3T)}</h3><p class="muted">${t(UI.card3P)}</p><button class="btn primary small go" data-go="quiz">${t(UI.start)}</button></div>
+  </div>`;
+}
+
+/* ---------- learn ---------- */
+const deckSlides = () => SLIDES.filter(s => s.v === "both" || s.v === S.ver);
+function viewLearn() {
+  const list = deckSlides();
+  if (S.slide >= list.length) S.slide = list.length - 1;
+  const s = list[S.slide];
+  return `
+  <div class="learn-head">
+    <div style="display:grid;gap:8px;max-width:64ch"><h1 style="font-size:clamp(28px,3.6vw,38px)">${t(UI.learnTitle)}</h1><p class="muted">${t(UI.learnLead)}</p></div>
+    <div class="seg" role="group"><button data-ver-btn="full" aria-pressed="${S.ver === "full"}">${t(UI.full)}</button><button data-ver-btn="simple" aria-pressed="${S.ver === "simple"}">${t(UI.simple)}</button></div>
+  </div>
+  <div class="deck">
+    <div class="slide" id="slide">${renderSlide(s)}</div>
+    <div class="deck-foot">
+      <button class="btn ghost small" data-slide="-1" ${S.slide === 0 ? "disabled" : ""}>${icon("arrowL", "ic16 flip")} ${t(UI.prev)}</button>
+      <div class="count"><div class="dots">${list.map((x, i) => `<button aria-label="${i + 1}" data-slide-to="${i}" ${i === S.slide ? 'aria-current="true"' : ""}></button>`).join("")}</div><div style="text-align:center;margin-top:6px" class="num">${fill(pick(UI.slideOf), { a: S.slide + 1, b: list.length })}</div></div>
+      <button class="btn primary small" data-slide="1" ${S.slide === list.length - 1 ? "disabled" : ""}>${t(UI.next)} ${icon("arrowR", "ic16 flip")}</button>
+    </div>
+  </div>`;
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-slide],[data-slide-to],[data-ver-btn]");
+  if (!b) return;
+  if (b.dataset.verBtn) { S.ver = b.dataset.verBtn; S.slide = 0; try { localStorage.setItem("kyc-ver", S.ver); } catch (er) {} }
+  else if (b.dataset.slideTo) S.slide = +b.dataset.slideTo;
+  else S.slide = Math.max(0, Math.min(deckSlides().length - 1, S.slide + +b.dataset.slide));
+  render();
+});
+document.addEventListener("keydown", e => {
+  if (S.view !== "learn" || e.target.closest("input,textarea,select")) return;
+  let d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+  if (!d) return;
+  if (S.lang === "ar") d = -d;
+  const n = Math.max(0, Math.min(deckSlides().length - 1, S.slide + d));
+  if (n !== S.slide) { S.slide = n; render(); }
+});
+
+const visible = b => !b.only || b.only === S.ver;
+function renderSlide(s) {
+  if (s.kind === "title") {
+    return `<div class="title-slide"><div style="display:grid;gap:16px"><div class="eyebrow">MIDSTAR</div><h2>${t(s.title)}</h2><p class="muted" style="font-size:18px">${t(s.sub)}</p><p class="disclaimer">${t(s.disc)}</p></div>
+      <div class="title-art">${titleArt()}</div></div>`;
+  }
+  return `<h2>${t(s.title)}</h2>${s.blocks.filter(visible).map(renderBlock).join("")}`;
+}
+function renderBlock(b) {
+  switch (b.k) {
+    case "bullets": { const items = b.items.map(pick).filter(Boolean); return items.length ? `<ul class="bullets">${items.map(i => `<li>${esc(i)}</li>`).join("")}</ul>` : ""; }
+    case "tiles": {
+      const items = b.items.filter(visible);
+      return `<div class="grid${items.length === 1 ? "1" : b.cols}" style="${items.length === 1 ? "display:grid" : ""}">${items.map(it => {
+        const p = pick(it.p), list = pick2(it.list), foot = pick(it.foot);
+        return `<div class="tile${b.plain ? " plain" : ""}">${it.ic ? icon(it.ic) : ""}<h4>${t(it.h)}</h4>${p ? `<p>${esc(p)}</p>` : ""}${list && list.length ? `<ul>${list.map(x => `<li>${t(x)}</li>`).join("")}</ul>` : ""}${foot ? `<p style="font-size:14px;margin-top:4px"><em>${esc(foot)}</em></p>` : ""}</div>`;
+      }).join("")}</div>`;
+    }
+    case "timeline": return `<div class="timeline">${b.items.map(it => `<div class="tile"><h4>${t(it.h)}</h4><p>${t(it.p)}</p></div>`).join("")}</div>`;
+    case "example": return `<div class="example"><b class="tag">${t(UI.example)}</b><p>${t(b.t)}</p></div>`;
+    case "takeaway": return `<p class="takeaway">${t(b.t)}</p>`;
+    case "sim": return simBlock(b.id, true);
+    case "split": return `<div class="grid2" style="align-items:center">${renderBlock(b.left)}${renderBlock(b.right)}</div>`;
+  }
+  return "";
+}
+function pick2(o) { if (!o) return null; if (Array.isArray(o)) return o; return o[S.ver]; }
+function titleArt() {
+  const bars = [30, 42, 38, 55, 50, 68, 62, 80, 74, 92];
+  return `<svg viewBox="0 0 240 180" width="80%" aria-hidden="true">${bars.map((h, i) => `<rect x="${18 + i * 21}" y="${160 - h * 1.5}" width="13" height="${h * 1.5}" rx="2" fill="var(--gold)" opacity="${0.35 + i * 0.065}"/>`).join("")}<path d="M24 ${160 - 30 * 1.5 - 10} ${bars.map((h, i) => `L${24 + i * 21} ${160 - h * 1.5 - 10}`).join(" ")}" fill="none" stroke="var(--ink)" stroke-width="1.5" opacity=".5"/><line x1="10" y1="160" x2="230" y2="160" stroke="var(--ink)" opacity=".3"/></svg>`;
+}
+
+/* ---------- simulators ---------- */
+const CTL = {
+  inflation: [["amt", SIM_TXT.amount, 10000, 1000000, 10000, usd], ["inf", SIM_TXT.infl, 0.5, 10, 0.5, v => v + "%"], ["ret", SIM_TXT.ret, 0, 12, 0.5, v => v + "%"], ["yrs", SIM_TXT.years, 1, 40, 1, v => v]],
+  compound: [["ini", SIM_TXT.initial, 0, 1000000, 5000, usd], ["mon", SIM_TXT.monthly, 0, 20000, 250, usd], ["ret", SIM_TXT.ret, 0, 12, 0.5, v => v + "%"], ["yrs", SIM_TXT.years, 1, 40, 1, v => v]],
+  riskreward: [["amt", SIM_TXT.amount, 1000, 1000000, 1000, usd]],
+};
+const SIM_TITLE = { inflation: SIM_TXT.inflT, compound: SIM_TXT.compT, riskreward: SIM_TXT.rrT };
+function simBlock(id, inSlide) {
+  if (id === "curve") return `<div class="chart">${curveSVG()}</div>`;
+  if (id === "alloc") return `<div class="sim" data-sim="alloc"><div class="sim-out"></div></div>`;
+  const ctl = CTL[id] || [];
+  return `<div class="sim" data-sim="${id}">
+    <h4>${inSlide ? `<span class="eyebrow" style="margin-inline-end:8px">${t(UI.tryIt)}</span>` : ""}${t(SIM_TITLE[id])}</h4>
+    <div class="controls">${ctl.map(([k, lab, mn, mx, st, f]) => `<div class="ctl"><label for="s-${id}-${k}"><span>${t(lab)}</span><output id="o-${id}-${k}">${f(S.sim[id][k])}</output></label><input type="range" id="s-${id}-${k}" data-k="${k}" min="${mn}" max="${mx}" step="${st}" value="${S.sim[id][k]}"></div>`).join("")}</div>
+    <div class="sim-out"></div></div>`;
+}
+function bindSims(root) {
+  root.querySelectorAll(".sim[data-sim]").forEach(el => {
+    const id = el.dataset.sim;
+    el.querySelectorAll("input[type=range]").forEach(inp => inp.addEventListener("input", () => {
+      S.sim[id][inp.dataset.k] = +inp.value;
+      const c = CTL[id].find(c => c[0] === inp.dataset.k);
+      el.querySelector(`#o-${id}-${inp.dataset.k}`).textContent = c[5](+inp.value);
+      drawSim(el, id);
+    }));
+    drawSim(el, id);
+  });
+}
+function drawSim(el, id) {
+  const out = el.querySelector(".sim-out"), st = S.sim[id];
+  if (id === "inflation") {
+    const { amt, inf, ret, yrs } = st, cash = [], inv = [];
+    for (let y = 0; y <= yrs; y++) { cash.push([y, amt / Math.pow(1 + inf / 100, y)]); inv.push([y, amt * Math.pow((1 + ret / 100) / (1 + inf / 100), y)]); }
+    const c = cash[yrs][1], v = inv[yrs][1];
+    out.innerHTML = `<div class="statrow"><div class="stat"><span class="v">${usd(c)}</span><span class="k">${t(SIM_TXT.cashReal)}</span></div><div class="stat"><span class="v">${usd(v)}</span><span class="k">${t(SIM_TXT.invReal)}</span></div><div class="stat"><span class="v" style="color:var(--loss)">${Math.round((1 - c / amt) * 100)}%</span><span class="k">${t(SIM_TXT.lost)}</span></div></div>
+      <div class="example"><b class="tag">${t(UI.example)}</b><p>${esc(fill(pick(SIM_TXT.inflEx), { a: usd(amt), b: usd(c), y: yrs }))}</p></div>
+      ${lineChart([{ name: pick(SIM_TXT.invReal), color: "var(--gain)", pts: inv }, { name: pick(SIM_TXT.cashReal), color: "var(--loss)", pts: cash }], pick(SIM_TXT.years))}
+      <p class="disclaimer">${t(SIM_TXT.illus)}</p>`;
+  } else if (id === "compound") {
+    const { ini, mon, ret, yrs } = st, r = ret / 100 / 12, tot = [[0, ini]], paid = [[0, ini]];
+    let v = ini, p = ini;
+    for (let m = 1; m <= yrs * 12; m++) { v = v * (1 + r) + mon; p += mon; if (m % 12 === 0) { tot.push([m / 12, v]); paid.push([m / 12, p]); } }
+    out.innerHTML = `<div class="statrow"><div class="stat"><span class="v">${usd(v)}</span><span class="k">${t(SIM_TXT.finalV)}</span></div><div class="stat"><span class="v">${usd(p)}</span><span class="k">${t(SIM_TXT.paidIn)}</span></div><div class="stat"><span class="v" style="color:var(--gain)">${usd(v - p)}</span><span class="k">${t(SIM_TXT.growth)}</span></div></div>
+      ${lineChart([{ name: pick(SIM_TXT.total), color: "var(--gold)", pts: tot, area: true }, { name: pick(SIM_TXT.contrib), color: "var(--muted)", pts: paid, dash: true }], pick(SIM_TXT.years))}
+      <p class="disclaimer">${t(SIM_TXT.illus)}</p>`;
+  } else if (id === "riskreward") {
+    out.innerHTML = rrChart(st.amt / 1000) + `<p class="disclaimer">${t(UI.disclaimerFoot)}</p>`;
+  } else if (id === "alloc") {
+    out.innerHTML = allocView();
+    out.querySelectorAll("[data-alloc]").forEach(b => b.addEventListener("click", () => { S.sim.alloc.sel = +b.dataset.alloc; drawSim(el, id); }));
+  }
+}
+function niceMax(v) { if (v <= 0) return 1; const e = Math.pow(10, Math.floor(Math.log10(v))); for (const m of [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]) if (m * e >= v) return m * e; return 10 * e; }
+function lineChart(series, xLabel) {
+  const W = 860, H = 300, pl = 64, pr = 16, pt = 14, pb = 34;
+  const xs = series[0].pts.map(p => p[0]), xMax = Math.max(...xs) || 1;
+  const yMax = niceMax(Math.max(...series.flatMap(s => s.pts.map(p => p[1]))));
+  const X = x => pl + (x / xMax) * (W - pl - pr), Y = y => pt + (1 - y / yMax) * (H - pt - pb);
+  const ticks = [0, .2, .4, .6, .8, 1].map(f => f * yMax);
+  const xt = []; const step = Math.max(1, Math.ceil(xMax / 8)); for (let x = 0; x <= xMax; x += step) xt.push(x);
+  const lines = series.map(s => {
+    const d = s.pts.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + " " + Y(p[1]).toFixed(1)).join(" ");
+    const last = s.pts[s.pts.length - 1];
+    return (s.area ? `<path d="${d} L${X(last[0])} ${Y(0)} L${X(0)} ${Y(0)} Z" fill="${s.color}" opacity=".12"/>` : "") +
+      `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2.5" ${s.dash ? 'stroke-dasharray="5 4"' : ""}/><circle cx="${X(last[0])}" cy="${Y(last[1])}" r="4" fill="${s.color}"/>`;
+  }).join("");
+  return `<div class="chart"><svg viewBox="0 0 ${W} ${H}" direction="ltr" role="img">
+    <g class="grid">${ticks.map(v => `<line x1="${pl}" x2="${W - pr}" y1="${Y(v)}" y2="${Y(v)}"/>`).join("")}</g>
+    ${ticks.map(v => `<text x="${pl - 8}" y="${Y(v) + 4}" text-anchor="end">${usdShort(v)}</text>`).join("")}
+    ${xt.map(x => `<text x="${X(x)}" y="${H - 14}" text-anchor="middle">${x}</text>`).join("")}
+    <text x="${W - pr}" y="${H - 1}" text-anchor="end">${esc(xLabel)}</text>
+    ${lines}</svg></div>
+    <div class="legend" style="display:flex;gap:18px;flex-wrap:wrap">${series.map(s => `<div><i style="background:${s.color}"></i>${esc(s.name)}</div>`).join("")}</div>`;
+}
+function rrChart(mult) {
+  const W = 860, H = 320, pl = 64, pr = 12, pt = 24, pb = 46;
+  const yTop = niceMax(7000 * mult), yBot = -niceMax(1000 * mult);
+  const Y = v => pt + (yTop - v) / (yTop - yBot) * (H - pt - pb);
+  const n = RISK_REWARD.length, bw = (W - pl - pr) / n;
+  const ticks = []; for (let i = 0; i <= 7; i++) ticks.push(yBot + (yTop - yBot) * i / 7);
+  const nice = [yBot, 0, ...[0.25, .5, .75, 1].map(f => f * yTop)];
+  const bars = RISK_REWARD.map((r, i) => {
+    const x = pl + i * bw + bw * 0.3, w = bw * 0.4, up = r.up * mult, dn = r.dn * mult;
+    return `<rect x="${x}" y="${Y(up)}" width="${w}" height="${Y(0) - Y(up)}" fill="var(--gain)" rx="2"/>
+      <rect x="${x}" y="${Y(0)}" width="${w}" height="${Y(dn) - Y(0)}" fill="var(--loss)" rx="2"/>
+      <text x="${x + w / 2}" y="${Y(up) - 6}" text-anchor="middle" style="fill:var(--ink);font-weight:600">${usdLab(up)}</text>
+      <text x="${x + w / 2}" y="${Y(dn) + 14}" text-anchor="middle" style="fill:var(--loss)">${usdLab(dn)}</text>
+      <text x="${pl + i * bw + bw / 2}" y="${H - 18}" text-anchor="middle">${esc(pick(r.n))}</text>`;
+  }).join("");
+  return `<div class="chart"><svg viewBox="0 0 ${W} ${H}" direction="ltr" role="img">
+    <g class="grid">${nice.map(v => `<line x1="${pl}" x2="${W - pr}" y1="${Y(v)}" y2="${Y(v)}"/>`).join("")}</g>
+    <line x1="${pl}" x2="${W - pr}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--ink)" opacity=".5"/>
+    ${nice.map(v => `<text x="${pl - 8}" y="${Y(v) + 4}" text-anchor="end">${usdShort(v)}</text>`).join("")}
+    ${bars}</svg></div>
+    <div class="legend" style="display:flex;gap:18px;flex-wrap:wrap"><div><i style="background:var(--gain)"></i>${t(SIM_TXT.gain)}</div><div><i style="background:var(--loss)"></i>${t(SIM_TXT.loss)}</div></div>`;
+}
+function curveSVG() {
+  const W = 420, H = 260, P = [[70, 200], [210, 120], [360, 70]];
+  const lbl = [SIM_TXT.veryCons, SIM_TXT.moderate, SIM_TXT.veryAgg];
+  return `<svg viewBox="0 0 ${W} ${H}" direction="ltr" style="min-width:0;max-width:440px" role="img">
+    <path d="M40 230 H400 M40 230 V20" stroke="var(--muted)" fill="none"/>
+    <path d="M45 225 C 120 170, 220 100, 395 62" stroke="var(--gold)" stroke-width="3" fill="none"/>
+    ${P.map((p, i) => `<line x1="${p[0]}" y1="${p[1]}" x2="${p[0]}" y2="${p[1] - 32}" stroke="var(--muted)"/><circle cx="${p[0]}" cy="${p[1]}" r="5" fill="var(--ink)"/><text x="${p[0]}" y="${p[1] - 38}" text-anchor="middle" style="fill:var(--ink);font-weight:600">${t(lbl[i])}</text>`).join("")}
+    <text x="220" y="252" text-anchor="middle">${t(SIM_TXT.curveX)}</text>
+    <text x="16" y="125" text-anchor="middle" transform="rotate(-90 16 125)">${t(SIM_TXT.curveY)}</text></svg>`;
+}
+function allocView() {
+  const sel = S.sim.alloc.sel, W = 860, H = 260, pl = 44, pb = 44, bw = (W - pl - 10) / 5;
+  const bars = ALLOC.cols.map((c, i) => {
+    let y = H - pb; const x = pl + i * bw + bw * .2, w = bw * .6, sc = (H - pb - 12) / 100;
+    const segs = ALLOC.rows.map(r => { const h = r.v[i] * sc; y -= h; return h ? `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${r.c}"/>` : ""; }).join("");
+    return `<g data-alloc="${i}" style="cursor:pointer" opacity="${i === sel ? 1 : .45}">${segs}<rect x="${x - 4}" y="10" width="${w + 8}" height="${H - pb - 8}" fill="transparent"/><text x="${x + w / 2}" y="${H - 22}" text-anchor="middle" style="fill:var(--ink);font-weight:600">${c.id}</text><text x="${x + w / 2}" y="${H - 6}" text-anchor="middle">${esc(pick(c.n))}</text></g>`;
+  }).join("");
+  return `<div class="tblwrap"><table class="alloc-table">
+    <thead><tr><th>${t(SIM_TXT.profile)}</th>${ALLOC.cols.map((c, i) => `<th class="${i === sel ? "sel" : ""}"><button data-alloc="${i}">${c.id}</button></th>`).join("")}</tr>
+    <tr><th>${t(SIM_TXT.strategy)}</th>${ALLOC.cols.map((c, i) => `<th class="${i === sel ? "sel" : ""}" style="font-weight:500">${t(c.n)}</th>`).join("")}</tr></thead>
+    <tbody><tr><td colspan="6" class="muted" style="font-size:13px">${t(SIM_TXT.classes)}</td></tr>${ALLOC.rows.map(r => `<tr><td><span class="swatch" style="background:${r.c}"></span>${t(r.n)}</td>${r.v.map((v, i) => `<td class="${i === sel ? "sel" : ""}" style="${i === sel ? "background:var(--sand);font-weight:600" : ""}">${v}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
+    <div class="chart"><svg viewBox="0 0 ${W} ${H}" direction="ltr" style="min-width:420px">${[0, 50, 100].map(v => `<text x="${pl - 6}" y="${H - pb - v * (H - pb - 12) / 100 + 4}" text-anchor="end">${v}%</text>`).join("")}${bars}</svg></div>
+    <p class="disclaimer">${t(ALLOC.note)}</p>`;
+}
+
+/* ---------- tools ---------- */
+function viewTools() {
+  return `<div style="display:grid;gap:8px;max-width:64ch"><h1 style="font-size:clamp(28px,3.6vw,38px)">${t(UI.toolsTitle)}</h1><p class="muted">${t(UI.toolsLead)}</p></div>
+    ${simBlock("inflation")}${simBlock("compound")}${simBlock("riskreward")}
+    <div class="sim"><h4>${t({ en: "Asset allocation by profile", ar: "توزيع الأصول حسب الملف" })}</h4><div data-sim="alloc" class="sim" style="border:0;padding:0;background:none"><div class="sim-out"></div></div></div>`;
+}
+
+/* ---------- questionnaire ---------- */
+const Q = S.q;
+const qById = id => QUESTIONS.find(q => q.id === id);
+const allAnswered = () => QUESTIONS.every(q => Q.ans[q.id] != null);
+function reachable(i) {
+  const id = STEPS[i];
+  if (id === "intro") return true;
+  for (let j = 1; j < i; j++) { const s = STEPS[j]; if (s === "self") { if (Q.self == null) return false; } else if (s !== "result" && Q.ans[s] == null) return false; }
+  return true;
+}
+function scores() {
+  let R = 0, Lq = 0;
+  QUESTIONS.forEach(q => { const a = Q.ans[q.id]; if (a == null) return; const p = q.opts[a].p; if (q.part === "R") R += p; else Lq += p; });
+  return { R, L: Lq };
+}
+const band = (v, b) => v < b[1] ? 0 : v < b[2] ? 1 : v < b[3] ? 2 : 3;
+function profileFor(R, Lq) { return MATRIX[band(R, R_BOUNDS)][band(Lq, L_BOUNDS)]; }
+
+function viewQuiz() {
+  const done = QUESTIONS.filter(q => Q.ans[q.id] != null).length + (Q.self != null ? 1 : 0);
+  const total = QUESTIONS.length + 1;
+  const group = (label, ids) => `<li class="part">${t(label)}</li>` + ids.map(id => {
+    const i = STEPS.indexOf(id), isDone = id === "self" ? Q.self != null : id === "intro" ? true : id === "result" ? false : Q.ans[id] != null;
+    const lbl = id === "intro" ? UI.about : id === "result" ? UI.results : SHORT[id];
+    return `<li class="${isDone && id !== "intro" ? "done" : ""}"><button data-step="${i}" ${Q.step === i ? 'aria-current="step"' : ""} ${reachable(i) ? "" : "disabled"}><span class="tick">${isDone && id !== "intro" ? "✓" : ""}</span>${t(lbl)}</button></li>`;
+  }).join("");
+  return `<div class="quiz">
+    <aside class="rail">
+      <div class="eyebrow">${t(UI.qTitle)}</div>
+      <div class="progress"><i style="width:${done / total * 100}%"></i></div>
+      <div class="muted num" style="font-size:13px">${fill(pick(UI.answered), { a: done, b: total })}</div>
+      <ol>${group(UI.about, ["intro"])}${group(UI.partI, QUESTIONS.filter(q => q.part === "R").map(q => q.id))}${group(UI.partII, QUESTIONS.filter(q => q.part === "L").map(q => q.id))}${group(UI.partIII, ["self"])}${group(UI.results, ["result"])}</ol>
+      <label class="adv"><input type="checkbox" id="allHelp" ${Q.allHelp ? "checked" : ""}> ${t(UI.showAllHelp)}</label>
+      <label class="adv"><input type="checkbox" id="showPts" ${Q.showPts ? "checked" : ""}> ${t(UI.showPts)}</label>
+    </aside>
+    <div class="qcard" id="qcard">${stepView()}</div>
+  </div>`;
+}
+function stepView() {
+  const id = STEPS[Q.step];
+  if (id === "intro") return `
+    <div class="eyebrow">${t(UI.about)}</div><h2>${t(UI.introH)}</h2>
+    <p>${t(UI.introP)}</p>
+    <div class="fields"><label class="field">${t(UI.nameL)}<input id="qName" autocomplete="name" value="${esc(Q.name)}"></label><label class="field">${t(UI.dateL)}<input id="qDate" type="date" value="${esc(Q.date)}"></label></div>
+    <p class="muted" style="display:flex;gap:8px;align-items:center;font-size:14px">${icon("shield", "ic16")} ${t(UI.privacy)}</p>
+    <div class="qnav"><span></span><button class="btn primary" data-nav="1">${t(UI.start)}</button></div>`;
+  if (id === "result") return resultView();
+  const isSelf = id === "self", q = isSelf ? null : qById(id);
+  const partLbl = isSelf ? UI.partIII : q.part === "R" ? UI.partI : UI.partII;
+  const num = Q.step; // 1..12
+  const open = Q.allHelp || Q.open[id];
+  const help = isSelf ? UI.selfHelp : q.help, ex = isSelf ? UI.selfEx : q.ex;
+  const cur = isSelf ? Q.self : Q.ans[id];
+  const opts = isSelf ? PROFILES.map((p, i) => `<label class="opt${cur === i ? " on" : ""}"><input type="radio" name="opt" value="${i}" ${cur === i ? "checked" : ""}><span class="dot"></span><span class="body"><b>${t(p.name)}</b><small>${t(p.text)}</small></span></label>`).join("")
+    : q.opts.map((o, i) => `<label class="opt${cur === i ? " on" : ""}"><input type="radio" name="opt" value="${i}" ${cur === i ? "checked" : ""}><span class="dot"></span><span class="body"><span>${t(o.t)}</span>${q.range ? rangeViz(o) : ""}</span>${Q.showPts ? `<span class="pts">${o.p} ${t(UI.pts)}</span>` : ""}</label>`).join("");
+  const last = id === "self";
+  return `
+    <div class="eyebrow">${t(partLbl)} · ${num} / 12</div>
+    <h2 id="qh">${isSelf ? t(UI.selfQ) : t(q.q)}</h2>
+    ${Q.allHelp ? "" : `<button class="help-toggle" data-help="${id}" aria-expanded="${!!open}">${icon("info", "ic16")} ${open ? t(UI.hide) : t(UI.explain)}</button>`}
+    ${open ? `<div class="help"><p><b>${t(UI.whatMeans)}.</b> ${t(help)}</p><p class="ex"><b>${t(UI.forExample)}:</b> ${t(ex)}</p></div>` : ""}
+    <div class="opts" role="radiogroup" aria-labelledby="qh">${opts}</div>
+    <div class="qnav"><button class="btn ghost" data-nav="-1">${t(UI.back)}</button><button class="btn primary" data-nav="1" ${cur == null ? "disabled" : ""}>${last ? t(UI.seeResult) : t(UI.cont)}</button></div>`;
+}
+function rangeViz(o) {
+  const lo = 0.6, hi = 1.5, P = v => ((v - lo) / (hi - lo)) * 100;
+  const pct = v => (v >= 1 ? "+" : "−") + Math.round(Math.abs(v - 1) * 100) + "%";
+  return `<span class="range-viz" dir="ltr" aria-hidden="true"><span class="dn" style="left:${P(o.lo)}%;width:${P(1) - P(o.lo)}%"></span><span class="up" style="left:${P(1)}%;width:${P(o.hi) - P(1)}%"></span><span class="base" style="left:${P(1)}%"></span></span><small dir="ltr" style="text-align:${S.lang === "ar" ? "right" : "left"}">${pct(o.lo)} / ${pct(o.hi)}</small>`;
+}
+function rerenderQuiz() { const v = $("#view"); v.innerHTML = viewQuiz(); bindSims(v); }
+document.addEventListener("click", e => {
+  if (S.view !== "quiz") return;
+  const st = e.target.closest("[data-step]");
+  if (st && !st.disabled) { Q.step = +st.dataset.step; rerenderQuiz(); scrollQ(); return; }
+  const nv = e.target.closest("[data-nav]");
+  if (nv && !nv.disabled) { Q.step = Math.max(0, Math.min(STEPS.length - 1, Q.step + +nv.dataset.nav)); rerenderQuiz(); scrollQ(); return; }
+  const h = e.target.closest("[data-help]");
+  if (h) { Q.open[h.dataset.help] = !Q.open[h.dataset.help]; rerenderQuiz(); return; }
+  const a = e.target.closest("[data-act]");
+  if (a) {
+    const act = a.dataset.act;
+    if (act === "copy") copySummary();
+    if (act === "print") window.print();
+    if (act === "edit") { Q.step = 1; rerenderQuiz(); scrollQ(); }
+    if (act === "restart") { Object.assign(Q, { step: 0, ans: {}, self: null, name: "", open: {} }); rerenderQuiz(); scrollQ(); }
+  }
+});
+document.addEventListener("change", e => {
+  if (S.view !== "quiz") return;
+  if (e.target.name === "opt") {
+    const id = STEPS[Q.step], v = +e.target.value;
+    if (id === "self") Q.self = v; else Q.ans[id] = v;
+    const y = window.scrollY; rerenderQuiz(); window.scrollTo(0, y);
+    const nb = document.querySelector('.qnav [data-nav="1"]'); if (nb) nb.focus({ preventScroll: true });
+  }
+  if (e.target.id === "allHelp") { Q.allHelp = e.target.checked; rerenderQuiz(); }
+  if (e.target.id === "showPts") { Q.showPts = e.target.checked; rerenderQuiz(); }
+});
+document.addEventListener("input", e => {
+  if (e.target.id === "qName") Q.name = e.target.value;
+  if (e.target.id === "qDate") Q.date = e.target.value;
+});
+function scrollQ() { const c = $("#qcard"); if (c && c.getBoundingClientRect().top < 0) c.scrollIntoView({ block: "start" }); else if (window.innerWidth < 860) window.scrollTo(0, 0); }
+
+/* ---------- results ---------- */
+function matrixSVG(pos) {
+  const cell = 92, ox = 58, oy = 10, n = 4, size = cell * n;
+  const W = ox + size + 12, H = oy + size + 50;
+  const colors = { 1: ["var(--p1)", "var(--p1-ink)"], 2: ["var(--p2)", "var(--p2-ink)"], 3: ["var(--p3)", "var(--p3-ink)"], 4: ["var(--p4)", "var(--p4-ink)"] };
+  let g = "";
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) {
+    const p = MATRIX[r][c], x = ox + c * cell, y = oy + (n - 1 - r) * cell;
+    g += `<rect x="${x}" y="${y}" width="${cell}" height="${cell}" fill="${colors[p][0]}" stroke="var(--surface)" stroke-width="2"/><text x="${x + cell / 2}" y="${y + cell / 2 + 6}" text-anchor="middle" style="fill:${colors[p][1]};font-size:17px;font-weight:600;opacity:.85">${p}</text>`;
+  }
+  const xr = v => { const b = L_BOUNDS; const i = Math.min(3, band(v, b)); return ox + (i + (v - b[i]) / (b[i + 1] - b[i])) * cell; };
+  const yr = v => { const b = R_BOUNDS; const i = Math.min(3, band(v, b)); return oy + size - (i + (v - b[i]) / (b[i + 1] - b[i])) * cell; };
+  const ticksX = L_BOUNDS.map((v, i) => `<text x="${ox + i * cell}" y="${oy + size + 16}" text-anchor="middle">${v}</text>`).join("");
+  const ticksY = R_BOUNDS.map((v, i) => `<text x="${ox - 8}" y="${oy + size - i * cell + 4}" text-anchor="end">${v}</text>`).join("");
+  let mark = "";
+  if (pos) {
+    const x = xr(pos.L), y = yr(pos.R);
+    mark = `<circle cx="${x}" cy="${y}" r="13" fill="var(--surface)" stroke="var(--ink)" stroke-width="2.5"/><circle cx="${x}" cy="${y}" r="5" fill="var(--ink)"/><text x="${x}" y="${y - 19}" text-anchor="middle" style="fill:var(--ink);font-weight:700;font-size:13px;paint-order:stroke;stroke:var(--surface);stroke-width:4px">${t(UI.you)}</text>`;
+  }
+  return `<svg viewBox="0 0 ${W} ${H}" direction="ltr" role="img" aria-label="${t(UI.matrixT)}" style="width:100%;height:auto;display:block">${g}${ticksX}${ticksY}
+    <text x="${ox + size / 2}" y="${oy + size + 38}" text-anchor="middle" style="font-weight:600;fill:var(--ink)">${t(UI.axisL)}</text>
+    <text x="14" y="${oy + size / 2}" text-anchor="middle" transform="rotate(-90 14 ${oy + size / 2})" style="font-weight:600;fill:var(--ink)">${t(UI.axisR)}</text>${mark}</svg>`;
+}
+function resultView() {
+  if (!allAnswered() || Q.self == null) { Q.step = 1; return stepView(); }
+  const { R, L: Lq } = scores(), prof = profileFor(R, Lq), P = PROFILES[prof - 1], self = PROFILES[Q.self], ok = self.n === prof;
+  const rows = QUESTIONS.map(q => `<tr><td><b>${q.id}</b> · ${t(SHORT[q.id])}</td><td>${t(q.opts[Q.ans[q.id]].t)}</td><td class="p">${q.opts[Q.ans[q.id]].p}</td></tr>`).join("");
+  return `
+    <div class="result-head">
+      <div style="display:grid;gap:8px"><div class="eyebrow">${t(UI.yourProfile)}${Q.name ? " · " + esc(Q.name) : ""}${Q.date ? " · " + esc(Q.date) : ""}</div>
+      <div><span class="badge p${prof}">${prof} · ${t(P.name)}</span></div>
+      <p style="max-width:62ch">${t(P.text)}</p></div>
+    </div>
+    <div class="scores">
+      <div class="meter"><div class="top"><span class="muted">${t(UI.riskScore)}</span><b>${R}<small class="muted" style="font-size:15px"> / 120</small></b></div><div class="bar2"><i style="width:${R / 120 * 100}%"></i></div><small class="muted">${t(UI.riskNote)}</small></div>
+      <div class="meter"><div class="top"><span class="muted">${t(UI.liqScore)}</span><b>${Lq}<small class="muted" style="font-size:15px"> / 100</small></b></div><div class="bar2"><i style="width:${Lq}%"></i></div><small class="muted">${t(UI.liqNote)}</small></div>
+    </div>
+    <div class="verdict ${ok ? "ok" : "no"}"><b>${ok ? t(UI.inLine) : t(UI.notInLine)}</b><p>${esc(fill(pick(ok ? UI.inLineP : UI.notInLineP), { s: pick(self.name), c: pick(P.name) }))}</p></div>
+    <h3 style="font-size:20px">${t(UI.matrixT)}</h3>
+    <div class="matrix-wrap"><div class="matrix">${matrixSVG({ R, L: Lq })}</div>
+      <div class="legend">${PROFILES.map(p => `<div><i style="background:var(--p${p.n})"></i>${p.n} = ${t(p.name)}</div>`).join("")}</div></div>
+    <details ${Q.showPts ? "open" : ""}><summary style="cursor:pointer;font-weight:600">${t(UI.answersT)}</summary>
+      <div class="tblwrap" style="margin-top:10px"><table class="ans-table"><thead><tr><th>${t(UI.colQ)}</th><th>${t(UI.colA)}</th><th style="text-align:end">${t(UI.colP)}</th></tr></thead>
+      <tbody>${rows}<tr><td><b>${t(UI.partIII)}</b></td><td>${t(self.name)}</td><td class="p">–</td></tr></tbody>
+      <tfoot><tr><td colspan="2">${t(UI.total)} R / L</td><td class="p">${R} / ${Lq}</td></tr></tfoot></table></div></details>
+    <div class="actions">
+      <button class="btn primary" data-act="copy">${t(UI.copy)}</button>
+      ${isFramed ? "" : `<button class="btn ghost" data-act="print">${t(UI.print)}</button>`}
+      <button class="btn ghost" data-act="edit">${t(UI.edit)}</button>
+      <button class="btn ghost" data-go="learn">${t(UI.learnMore)}</button>
+      <button class="btn ghost" data-act="restart">${t(UI.restart)}</button>
+    </div>
+    <textarea id="sumtxt" readonly hidden style="width:100%;min-height:200px;font:13px/1.5 ui-monospace,monospace;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px"></textarea>`;
+}
+function summaryText() {
+  const { R, L: Lq } = scores(), prof = profileFor(R, Lq), self = PROFILES[Q.self];
+  const lines = [
+    pick(UI.qTitle) + " · Midstar",
+    (Q.name ? pick(UI.nameL).replace(/\s*\(.*\)/, "") + ": " + Q.name + "\n" : "") + pick(UI.dateL) + ": " + Q.date,
+    "",
+    ...QUESTIONS.map(q => `${q.id} ${pick(SHORT[q.id])}: ${pick(q.opts[Q.ans[q.id]].t)} [${q.opts[Q.ans[q.id]].p}]`),
+    "",
+    `Total R = ${R} / 120 · Total L = ${Lq} / 100`,
+    `${pick(UI.yourProfile)}: ${prof} – ${pick(PROFILES[prof - 1].name)}`,
+    `${pick(UI.partIII)}: ${self.n} – ${pick(self.name)}`,
+    (self.n === prof ? pick(UI.inLine) : pick(UI.notInLine)).toUpperCase(),
+  ];
+  return lines.join("\n");
+}
+function toast(msg) { const d = document.createElement("div"); d.className = "toast"; d.textContent = msg; document.body.appendChild(d); setTimeout(() => d.remove(), 2600); }
+function copySummary() {
+  const txt = summaryText();
+  const fallback = () => { const ta = $("#sumtxt"); ta.hidden = false; ta.value = txt; ta.focus(); ta.select(); toast(pick(UI.copyFail)); };
+  try { navigator.clipboard.writeText(txt).then(() => toast(pick(UI.copied)), fallback); } catch (e) { fallback(); }
+}
+
+render();
+
+</script>
+</body>
+</html>
